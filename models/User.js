@@ -17,6 +17,10 @@ const UserSchema = new Schema({
   bio: {
     type: String
   },
+  likes: {
+    type: Number,
+    required: true
+  },
   social: {
     youtube: {
       type: String

@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 
 const user = require("./routes/api/user");
+const video = require("./routes/api/video");
 
 const app = express();
 
@@ -27,6 +28,7 @@ require("./config/passport")(passport);
 
 // Routes list
 app.use("/api/user", user);
+app.use("/api/video", video);
 
 const port = process.env.port || 5000;
 app.listen(port, () => console.log("Server running on port " + port));
