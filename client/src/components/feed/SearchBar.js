@@ -18,7 +18,7 @@ class SearchBar extends Component {
   onSubmit = e => {
     e.preventDefault();
     console.log(this.state.input);
-    this.props.addVideo([encodeURIComponent(this.state.input)]);
+    this.props.addVideo({ videoUrl: this.state.input });
   };
 
   render() {

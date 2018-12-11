@@ -21,7 +21,8 @@ router.post(
   (req, res) => {
     const youtubeEndpoint = "https://www.googleapis.com/youtube/v3/videos";
     const errors = {};
-    const videoId = youtubeUrl.extractId(decodeURIComponent(req.body[0]));
+
+    const videoId = youtubeUrl.extractId(req.body.videoUrl);
     if (!videoId) {
       errors.videoUrl = "Invalid Url";
       return res.status(400).json(errors);
@@ -43,6 +44,7 @@ router.post(
             })
             .then(video => {
               video = video.data.items[0].snippet;
+              videoId;
               const newVideo = new Video({
                 user: req.user.id,
                 videoId,
