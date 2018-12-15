@@ -13,9 +13,22 @@ const bcrypt = require("bcryptjs");
 const Video = require("../../models/Video");
 const User = require("../../models/User");
 
+// @route   POST api/video/all
+// @desc    fetch all videos from db
+// @access  private
+router.post("/all", (req, res) => {
+  const errors = {};
+
+  Video.find({})
+    .then(list => {
+      return res.json(list);
+    })
+    .catch(err => console.log(err));
+});
+
 // @route   POST api/video/add
 // @desc    check if video is new, then add it to the list
-// @access  public
+// @access  private
 router.post(
   "/add",
   passport.authenticate("jwt", { session: false }),

@@ -1,4 +1,4 @@
-import { ADD_VIDEO } from "../actions/types";
+import { ADD_VIDEO, LIST_VIDEOS } from "../actions/types";
 
 const initialState = {
   videoList: []
@@ -7,7 +7,9 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case ADD_VIDEO:
-      return { ...state, posts: [action.payload, ...state.videoList] };
+      return { ...state, videoList: [action.payload, ...state.videoList] };
+    case LIST_VIDEOS:
+      return { ...state, videoList: [...action.payload] };
     default:
       return state;
   }
