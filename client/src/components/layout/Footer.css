@@ -1,0 +1,11 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.github-link > a {
+  color: wheat;
+}
+.github-link > a:hover {
+  color: white;
+}
