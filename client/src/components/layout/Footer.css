@@ -1,7 +1,8 @@
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
+  background: #400;
 }
 .github-link > a {
   color: wheat;

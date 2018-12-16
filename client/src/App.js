@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import "./App.css";
 
+import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Feed from "./components/feed/Feed";
 import Login from "./components/login/Login";
@@ -13,12 +14,15 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <Switch>
-            <Route exact path="/" component={Feed} />
-            <Route exact path="/login" component={Login} />
-          </Switch>
+          <React.Fragment>
+            <Navbar />
+            <Switch>
+              <Route exact path="/" component={Feed} />
+              <Route exact path="/login" component={Login} />
+            </Switch>
+            <Footer />
+          </React.Fragment>
         </Router>
-        <Footer />
       </Provider>
     );
   }

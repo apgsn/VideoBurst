@@ -3,7 +3,7 @@ import "./Footer.css";
 
 export default function Footer() {
   return (
-    <footer className="footer p-2 bg-dark text-white text-center">
+    <footer className="footer p-2 text-white text-center">
       <div className="container">
         <div className="row">
           <div className="copyright col-sm">
@@ -15,9 +15,10 @@ export default function Footer() {
               href="https://github.com/apgsn"
               target="_blank"
               rel="noopener noreferrer"
-              alt="See on Github"
+              alt="See code on Github"
             >
-              See on <i class="fab fa-github-alt" />
+              See code on &nbsp;
+              <i className="fab fa-github-alt" />
             </a>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addVideo } from "../../actions/videoActions";
+import "./SearchBar.css";
 
 class SearchBar extends Component {
   constructor(props) {
@@ -23,13 +24,20 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.onSubmit}>
-          <input
-            onChange={this.onChange}
-            type="text"
-            placeholder="Paste a YouTube link here"
-          />
+      <div className="nav-link">
+        <form className="form-inline" onSubmit={this.onSubmit}>
+          <div className="inner-row">
+            <input
+              className="form-control"
+              type="search"
+              aria-label="Paste a YouTube link here"
+              onChange={this.onChange}
+              placeholder="Paste a YouTube link here"
+            />
+            <button className="btn btn-danger mx-1" type="submit">
+              <i class="fas fa-arrow-circle-right" />
+            </button>
+          </div>
         </form>
       </div>
     );

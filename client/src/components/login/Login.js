@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { loginUser } from "../../actions/authActions";
 
 import Input from "../common/Input";
@@ -47,9 +46,6 @@ class Login extends Component {
           />
           <input type="submit" className="btn btn-info btn-block mt-4" />
         </form>
-        <Link className="nav-link" to="/">
-          Add video
-        </Link>
       </div>
     );
   }
