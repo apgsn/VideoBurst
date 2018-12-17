@@ -15,10 +15,12 @@ class VideoCollection extends Component {
 
   render() {
     return (
-      <div>
-        {this.props.video.videoList.map((video, index) => (
-          <Video video={video} key={index} />
-        ))}
+      <div className="container">
+        <div className="row">
+          {this.props.video.videoList.map((video, index) => (
+            <Video video={video} key={index} />
+          ))}
+        </div>
       </div>
     );
   }

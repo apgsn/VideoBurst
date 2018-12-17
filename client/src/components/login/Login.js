@@ -29,23 +29,25 @@ class Login extends Component {
   };
   render() {
     return (
-      <div>
-        <form onSubmit={this.onSubmit}>
-          <Input
-            name="email"
-            placeholder="email"
-            errors={this.state.errors}
-            onChange={this.onChange}
-          />
-          <Input
-            name="password"
-            placeholder="password"
-            type="password"
-            errors={this.state.errors}
-            onChange={this.onChange}
-          />
-          <input type="submit" className="btn btn-info btn-block mt-4" />
-        </form>
+      <div id="login" style={{ marginTop: "100px" }}>
+        <div className="container">
+          <form onSubmit={this.onSubmit}>
+            <Input
+              name="email"
+              placeholder="email"
+              errors={this.state.errors}
+              onChange={this.onChange}
+            />
+            <Input
+              name="password"
+              placeholder="password"
+              type="password"
+              errors={this.state.errors}
+              onChange={this.onChange}
+            />
+            <input type="submit" className="btn btn-info btn-block mt-4" />
+          </form>
+        </div>
       </div>
     );
   }

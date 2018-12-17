@@ -12,9 +12,9 @@
 }
 
 .navbar-brand:hover {
-  color: #f7767a !important;
+  color: #f77 !important;
   animation-name: wiggleTube !important;
-  animation-duration: 0.5s;
+  animation-duration: 0.3s;
 }
 
 @keyframes wiggleTube {
