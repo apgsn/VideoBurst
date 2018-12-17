@@ -1,0 +1,24 @@
+.video-panel {
+  position: absolute;
+  width: 320px;
+  height: 180px;
+  background: black;
+  color: white;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+.video-panel:hover {
+  opacity: 0.75;
+  animation-duration: 0.3s;
+}
+
+.panel-title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 50px;
+}
+
+.panel-icons {
+  font-size: 35px;
+}

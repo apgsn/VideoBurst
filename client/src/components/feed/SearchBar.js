@@ -35,7 +35,7 @@ class SearchBar extends Component {
               placeholder="Paste a YouTube link here"
             />
             <button className="btn btn-danger mx-1" type="submit">
-              <i class="fas fa-arrow-circle-right" />
+              <i className="fas fa-arrow-circle-right" />
             </button>
           </div>
         </form>

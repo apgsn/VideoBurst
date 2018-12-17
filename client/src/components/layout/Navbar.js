@@ -10,7 +10,7 @@ class Navbar extends Component {
       <nav className="navbar navbar-fixed-top mb-4 navbar-expand-sm navbar-dark ">
         <div className="container">
           <Link className="navbar-brand" to="/">
-            <i class="fab fa-youtube" />
+            <i className="fab fa-youtube" />
             &nbsp; VideoBurst
           </Link>
           <button

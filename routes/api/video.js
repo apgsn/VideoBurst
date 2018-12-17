@@ -20,9 +20,8 @@ router.post("/all", (req, res) => {
   const errors = {};
 
   Video.find({})
-    .then(list => {
-      return res.json(list);
-    })
+    .populate("user", ["username"])
+    .then(list => res.json(list))
     .catch(err => console.log(err));
 });
 
