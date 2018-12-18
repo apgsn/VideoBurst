@@ -2,14 +2,16 @@
   position: absolute;
   width: 320px;
   height: 180px;
-  background: black;
+  background: #444;
   color: white;
-  transition: opacity 0.3s;
+  text-shadow: 2px 2px 5px black;
+  transition: opacity 0.3s, box-shadow 0.3s;
   opacity: 0;
 }
 
 .video-panel:hover {
-  opacity: 0.75;
+  opacity: 0.85;
+  box-shadow: 0 0 200px #000 inset;
   animation-duration: 0.3s;
 }
 

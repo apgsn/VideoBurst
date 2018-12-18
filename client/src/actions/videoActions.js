@@ -1,7 +1,7 @@
 import axios from "axios";
 import { GET_ERRORS, CLEAR_ERRORS, LIST_VIDEOS } from "./types";
 
-// Add video
+// Add video and reload feed
 export const addVideo = videoUrl => dispatch => {
   axios
     .post("/api/video/add", videoUrl)
@@ -19,7 +19,7 @@ export const addVideo = videoUrl => dispatch => {
     );
 };
 
-// load initial set of videos for the main page (VideoCollection comp)
+// load set of videos on main page
 export const loadVideos = () => dispatch => {
   axios
     .post("/api/video/all")
