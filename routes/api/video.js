@@ -15,10 +15,8 @@ const User = require("../../models/User");
 
 // @route   POST api/video/all
 // @desc    fetch all videos from db
-// @access  private
+// @access  public
 router.post("/all", (req, res) => {
-  const errors = {};
-
   Video.find({})
     .populate("user", ["username"])
     .then(list => res.json(list))

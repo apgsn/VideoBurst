@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { loginUser } from "../../actions/authActions";
+import { registerUser } from "../../actions/authActions";
 
 import Input from "../common/Input";
 
-class Login extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: "",
       email: "",
       password: "",
-      errors: {}
+      password2: ""
     };
   }
 
@@ -20,29 +21,44 @@ class Login extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    console.log(this.state.password);
-    const newLogin = {
+    const newUser = {
+      username: this.state.username,
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      password2: this.state.password2
     };
-    this.props.loginUser(newLogin);
+    this.props.registerUser(newUser, this.props.history);
   };
+
   render() {
     return (
-      <div id="login" style={{ marginTop: "100px" }}>
-        <div className="container">
+      <div id="register" style={{ marginTop: "100px" }}>
+        <div className="container custom-control ">
           <form onSubmit={this.onSubmit}>
+            <Input
+              name="username"
+              placeholder="username"
+              errors={this.props.errors.username}
+              onChange={this.onChange}
+            />
             <Input
               name="email"
               placeholder="email"
-              errors={this.state.errors}
+              errors={this.props.errors.email}
               onChange={this.onChange}
             />
             <Input
               name="password"
               placeholder="password"
               type="password"
-              errors={this.state.errors}
+              errors={this.props.errors.password}
+              onChange={this.onChange}
+            />
+            <Input
+              name="password2"
+              placeholder="repeat password"
+              type="password"
+              errors={this.props.errors.password2}
               onChange={this.onChange}
             />
             <input type="submit" className="btn btn-info btn-block mt-4" />
@@ -60,5 +76,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loginUser }
-)(Login);
+  { registerUser }
+)(Register);

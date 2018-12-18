@@ -16,7 +16,7 @@ class Video extends Component {
             <div className="container">
               <div className="row my-9 text-center">
                 <div className="col panel-icon-play">
-                  <i className="panel-icons fas fa-play-circle" />
+                  <i className="panel-icons fas fa-play" />
                 </div>
                 <div className="col panel-icon-like">
                   <i className="panel-icons fas fa-heart" />

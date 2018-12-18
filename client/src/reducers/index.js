@@ -5,6 +5,6 @@ import authReducer from "./authReducer";
 
 export default combineReducers({
   video: videoReducer,
-  error: errorReducer,
+  errors: errorReducer,
   auth: authReducer
 });

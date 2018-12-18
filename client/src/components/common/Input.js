@@ -4,14 +4,17 @@ export default function Input({
   name,
   placeholder,
   value,
-  error,
+  errors,
   type = "text",
   onChange,
   disabled
 }) {
+  console.log(errors);
+  let classes = "form-control form-control-lg " + (errors ? "is-invalid" : "");
   return (
     <div className="form-group">
       <input
+        className={classes}
         placeholder={placeholder}
         name={name}
         type={type}
@@ -19,7 +22,7 @@ export default function Input({
         onChange={onChange}
         disabled={disabled}
       />
-      {error && <div className="invalid-feedback">{error}</div>}
+      {errors && <div className="invalid-feedback">{errors}</div>}
     </div>
   );
 }
