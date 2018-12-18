@@ -35,7 +35,7 @@ router.post(
 
     const videoId = youtubeUrl.extractId(req.body.videoUrl);
     if (!videoId) {
-      errors.videoUrl = "Invalid Url";
+      errors.video = "Invalid Url";
       return res.status(400).json(errors);
     }
 
@@ -67,7 +67,7 @@ router.post(
             })
             .catch(err => {
               console.log(err);
-              errors.missing = "Sorry, this video doesn't exist";
+              errors.video = "Sorry, this video doesn't exist";
               return res.status(404).json(errors);
             });
         }

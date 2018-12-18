@@ -3,10 +3,9 @@ import "./Video.css";
 
 class Video extends Component {
   render() {
-    const { video, key } = this.props;
-    console.log(video);
+    const { video } = this.props;
     return (
-      <div className="video" key={key}>
+      <div className="video">
         <div className="video-panel">
           <div className="m-2 mx-4">
             <div className="panel-title">{video.title}</div>

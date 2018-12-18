@@ -9,7 +9,6 @@ export default function Input({
   onChange,
   disabled
 }) {
-  console.log(errors);
   let classes = "form-control form-control-lg " + (errors ? "is-invalid" : "");
   return (
     <div className="form-group">
