@@ -11,7 +11,6 @@ const passport = require("passport");
 const bcrypt = require("bcryptjs");
 
 const Video = require("../../models/Video");
-const User = require("../../models/User");
 
 // @route   POST api/video/all
 // @desc    fetch all videos from db
@@ -19,6 +18,7 @@ const User = require("../../models/User");
 router.post("/all", (req, res) => {
   Video.find({})
     .populate("user", ["username"])
+    .sort({ date: -1 })
     .then(list => res.json(list))
     .catch(err => console.log(err));
 });

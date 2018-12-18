@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addVideo } from "../../actions/videoActions";
+import { addVideo, loadVideos } from "../../actions/videoActions";
 import "./SearchBar.css";
 
 import Input from "../common/Input";
@@ -22,6 +22,7 @@ class SearchBar extends Component {
     e.preventDefault();
     console.log(this.state.input);
     this.props.addVideo({ videoUrl: this.state.input });
+    this.props.loadVideos();
   };
 
   render() {
@@ -56,5 +57,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addVideo }
+  { addVideo, loadVideos }
 )(SearchBar);
