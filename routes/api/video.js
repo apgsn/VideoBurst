@@ -11,6 +11,7 @@ const passport = require("passport");
 const bcrypt = require("bcryptjs");
 
 const Video = require("../../models/Video");
+const User = require("../../models/User");
 
 // @route   POST api/video/all
 // @desc    fetch all videos from db
@@ -73,6 +74,39 @@ router.post(
         }
       })
       .catch(err => console.log(err));
+  }
+);
+
+// @route   POST api/video/like/:id
+// @desc    like/dislike video
+// @access  private
+router.post(
+  "/like/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+    Video.findOne({ videoId: req.params.id })
+      .then(video => {
+        User.findById(req.user.id)
+          .then(user => {
+            if (video.likes.filter(like => like._id == req.user.id).length) {
+              // unlike video
+              const idx = video.likes
+                .map(like => String(like._id))
+                .indexOf(req.user.id);
+              video.likes.splice(idx, 1);
+
+              video.save().then(video => res.json(video));
+            } else {
+              // else like video
+              video.likes.push(user);
+              video.save().then(video => res.json(video));
+            }
+            // TODO: add/remove likes to uploader count
+          })
+          .catch(err => console.log("[Like] User error: " + err));
+      })
+      .catch(err => console.log("[Like] Video error: " + err));
   }
 );
 

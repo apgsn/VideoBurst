@@ -21,6 +21,14 @@ const UserSchema = new Schema({
     type: Number,
     required: true
   },
+  likedVideos: [
+    {
+      video: {
+        type: Schema.Types.ObjectId,
+        ref: "videos"
+      }
+    }
+  ],
   social: {
     youtube: {
       type: String
