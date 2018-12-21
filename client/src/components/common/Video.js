@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Like from "./Like";
 import "./Video.css";
 
 class Video extends Component {
@@ -17,9 +18,7 @@ class Video extends Component {
                 <div className="col panel-icon-play">
                   <i className="panel-icons fas fa-play" />
                 </div>
-                <div className="col panel-icon-like">
-                  <i className="panel-icons fas fa-heart" />
-                </div>
+                <Like videoElem={video} />
               </div>
             </div>
           </div>

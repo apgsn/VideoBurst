@@ -19,6 +19,24 @@ export const addVideo = videoUrl => dispatch => {
     );
 };
 
+// Like or dislike video
+export const likeVideo = id => dispatch => {
+  axios
+    .post("/api/video/like/" + id)
+    .then(res => {
+      dispatch(loadVideos());
+      dispatch({
+        type: CLEAR_ERRORS
+      });
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
 // load set of videos on main page
 export const loadVideos = () => dispatch => {
   axios

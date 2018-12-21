@@ -87,18 +87,26 @@ router.post(
     const errors = {};
     Video.findOne({ videoId: req.params.id })
       .then(video => {
-        User.findById(req.user.id).then(user => {
-          Promise.all([toggleLike(video, user), toggleLike(user, video)])
-            .then(() => {
-              return res.json({ success: true });
-            })
-            .catch(err => {
-              console.log(err);
-              errors.video =
-                "Something went wrong liking or disliking the video";
-              return res.status(400).json(errors);
-            });
-        });
+        User.findById(req.user.id)
+          .then(user => {
+            Promise.all([toggleLike(video, user), toggleLike(user, video)])
+              .then(() => {
+                console.log(video);
+                console.log(user);
+                return res.json({ success: true });
+              })
+              .catch(err => {
+                console.log(err);
+                errors.video =
+                  "Something went wrong liking or disliking the video";
+                return res.status(400).json(errors);
+              });
+          })
+          .catch(err => {
+            console.log(err);
+            errors.video = "User not found";
+            return res.status(404).json(errors);
+          });
       })
       .catch(err => {
         console.log(err);
@@ -113,7 +121,10 @@ async function toggleLike(obj1, obj2) {
   if (obj1.likes.filter(like => String(like._id) === String(obj2._id)).length) {
     // if that's true, it means it's an "unlike" action:
     // remove obj2 from likes list of obj1
-    const idx = obj1.likes.map(like => String(like._id)).indexOf(obj2._id);
+    const idx = obj1.likes
+      .map(like => String(like._id))
+      .indexOf(String(obj2._id));
+    console.log("idx " + idx);
     obj1.likes.splice(idx, 1);
   } else {
     // otherwise it's a "like" action: add obj2 to likes list of obj1
