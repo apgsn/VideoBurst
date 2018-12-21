@@ -21,6 +21,7 @@ const VideoSchema = new Schema({
   thumbnail: {
     type: String
   },
+  // list of users who liked this video
   likes: [
     {
       user: {

@@ -17,6 +17,7 @@ const UserSchema = new Schema({
   bio: {
     type: String
   },
+  // list of videos this user liked
   likes: [
     {
       video: {

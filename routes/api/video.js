@@ -98,12 +98,14 @@ router.post(
 );
 
 async function toggleLike(obj1, obj2) {
+  // check if obj1 is already included in likes list of obj2
   if (obj1.likes.filter(like => String(like._id) === String(obj2._id)).length) {
-    // remove item from likes list
+    // if that's true, it means it's an "unlike" action:
+    // remove obj1 from likes list of obj2
     const idx = obj1.likes.map(like => String(like._id)).indexOf(obj2._id);
     obj1.likes.splice(idx, 1);
   } else {
-    // else add item to likes list
+    // otherwise it's a "like" action: add obj1 to likes list of obj2
     obj1.likes.push(obj2);
   }
   obj1.save().then(i => true);
