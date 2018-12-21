@@ -88,9 +88,8 @@ router.post(
       .then(video => {
         User.findById(req.user.id)
           .then(user => {
-            toggleLike(video, user);
-            toggleLike(user, video);
-            return res.json({ success: true });
+            const dbRes = toggleLike(video, user) && toggleLike(user, video);
+            return res.json({ success: Boolean(dbRes) });
           })
           .catch(err => console.log("[Like] User error: " + err));
       })
@@ -98,17 +97,17 @@ router.post(
   }
 );
 
-const toggleLike = (obj1, obj2) => {
-  // User record edits
+async function toggleLike(obj1, obj2) {
   if (obj1.likes.filter(like => String(like._id) === String(obj2._id)).length) {
-    // remove video from liked videos list
+    // remove item from likes list
     const idx = obj1.likes.map(like => String(like._id)).indexOf(obj2._id);
     obj1.likes.splice(idx, 1);
   } else {
-    // else add video to liked videos list
+    // else add item to likes list
     obj1.likes.push(obj2);
   }
   obj1.save().then(i => true);
-};
+  return false;
+}
 
 module.exports = router;
