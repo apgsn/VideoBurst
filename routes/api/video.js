@@ -84,30 +84,31 @@ router.post(
   "/like/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const errors = {};
     Video.findOne({ videoId: req.params.id })
       .then(video => {
         User.findById(req.user.id)
           .then(user => {
-            if (video.likes.filter(like => like._id == req.user.id).length) {
-              // unlike video
-              const idx = video.likes
-                .map(like => String(like._id))
-                .indexOf(req.user.id);
-              video.likes.splice(idx, 1);
-
-              video.save().then(video => res.json(video));
-            } else {
-              // else like video
-              video.likes.push(user);
-              video.save().then(video => res.json(video));
-            }
-            // TODO: add/remove likes to uploader count
+            toggleLike(video, user);
+            toggleLike(user, video);
+            return res.json({ success: true });
           })
           .catch(err => console.log("[Like] User error: " + err));
       })
       .catch(err => console.log("[Like] Video error: " + err));
   }
 );
+
+const toggleLike = (obj1, obj2) => {
+  // User record edits
+  if (obj1.likes.filter(like => String(like._id) === String(obj2._id)).length) {
+    // remove video from liked videos list
+    const idx = obj1.likes.map(like => String(like._id)).indexOf(obj2._id);
+    obj1.likes.splice(idx, 1);
+  } else {
+    // else add video to liked videos list
+    obj1.likes.push(obj2);
+  }
+  obj1.save().then(i => true);
+};
 
 module.exports = router;
