@@ -84,32 +84,42 @@ router.post(
   "/like/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    const errors = {};
     Video.findOne({ videoId: req.params.id })
       .then(video => {
-        User.findById(req.user.id)
-          .then(user => {
-            const dbRes = toggleLike(video, user) && toggleLike(user, video);
-            return res.json({ success: Boolean(dbRes) });
-          })
-          .catch(err => console.log("[Like] User error: " + err));
+        User.findById(req.user.id).then(user => {
+          Promise.all([toggleLike(video, user), toggleLike(user, video)])
+            .then(() => {
+              return res.json({ success: true });
+            })
+            .catch(err => {
+              console.log(err);
+              errors.video =
+                "Something went wrong liking or disliking the video";
+              return res.status(400).json(errors);
+            });
+        });
       })
-      .catch(err => console.log("[Like] Video error: " + err));
+      .catch(err => {
+        console.log(err);
+        errors.video = "Database fetch error";
+        return res.status(404).json(errors);
+      });
   }
 );
 
 async function toggleLike(obj1, obj2) {
-  // check if obj1 is already included in likes list of obj2
+  // check if obj2 is already included in likes list of obj1
   if (obj1.likes.filter(like => String(like._id) === String(obj2._id)).length) {
     // if that's true, it means it's an "unlike" action:
-    // remove obj1 from likes list of obj2
+    // remove obj2 from likes list of obj1
     const idx = obj1.likes.map(like => String(like._id)).indexOf(obj2._id);
     obj1.likes.splice(idx, 1);
   } else {
-    // otherwise it's a "like" action: add obj1 to likes list of obj2
+    // otherwise it's a "like" action: add obj2 to likes list of obj1
     obj1.likes.push(obj2);
   }
-  obj1.save().then(i => true);
-  return false;
+  return await obj1.save();
 }
 
 module.exports = router;
