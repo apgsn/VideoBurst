@@ -13,12 +13,15 @@ export const registerUser = (userData, history) => dispatch => {
         type: CLEAR_ERRORS
       });
     })
-    .catch(err =>
+    .catch(err => {
+      dispatch({
+        type: CLEAR_ERRORS
+      });
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
-      })
-    );
+      });
+    });
 };
 
 // Login User
@@ -38,12 +41,15 @@ export const loginUser = (userData, history) => dispatch => {
       dispatch(setCurrentUser(decoded));
       history.push("/");
     })
-    .catch(err =>
+    .catch(err => {
+      dispatch({
+        type: CLEAR_ERRORS
+      });
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
-      })
-    );
+      });
+    });
 };
 
 // Set logged in user

@@ -11,12 +11,15 @@ export const addVideo = videoUrl => dispatch => {
         type: CLEAR_ERRORS
       });
     })
-    .catch(err =>
+    .catch(err => {
+      dispatch({
+        type: CLEAR_ERRORS
+      });
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
-      })
-    );
+      });
+    });
 };
 
 // Like or dislike video
@@ -29,12 +32,15 @@ export const likeVideo = id => dispatch => {
         type: CLEAR_ERRORS
       });
     })
-    .catch(err =>
+    .catch(err => {
+      dispatch({
+        type: CLEAR_ERRORS
+      });
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
-      })
-    );
+      });
+    });
 };
 
 // load set of videos on main page
@@ -48,10 +54,13 @@ export const loadVideos = () => dispatch => {
         payload: res.data
       });
     })
-    .catch(err =>
+    .catch(err => {
+      dispatch({
+        type: CLEAR_ERRORS
+      });
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
-      })
-    );
+      });
+    });
 };

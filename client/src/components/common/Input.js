@@ -1,4 +1,5 @@
 import React from "react";
+import ErrorPopup from "../common/ErrorPopup";
 
 export default function Input({
   name,
@@ -9,7 +10,7 @@ export default function Input({
   onChange,
   disabled
 }) {
-  let classes = "form-control form-control-lg " + (errors ? "is-invalid" : "");
+  let classes = "form-control " + (errors ? "is-invalid" : "");
   return (
     <div className="form-group">
       <input
@@ -21,7 +22,7 @@ export default function Input({
         onChange={onChange}
         disabled={disabled}
       />
-      {errors && <div className="invalid-feedback">{errors}</div>}
+      {errors && <ErrorPopup error={errors} />}
     </div>
   );
 }

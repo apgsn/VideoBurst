@@ -1,0 +1,31 @@
+.error-popup {
+  position: fixed;
+  bottom: 10%;
+  right: 10%;
+  padding: 5;
+  background: lightpink;
+  color: darkred;
+  animation: errorAnim 0.3s 1 forwards ease-out;
+}
+
+.error-popup-cross {
+  font-size: 15px;
+  color: darkred;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  float: right;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+@keyframes errorAnim {
+  0% {
+    bottom: 0px;
+  }
+  100% {
+    bottom: 75px;
+  }
+}
