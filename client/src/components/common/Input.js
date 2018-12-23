@@ -1,5 +1,4 @@
 import React from "react";
-import ErrorPopup from "../common/ErrorPopup";
 
 export default function Input({
   name,
@@ -22,7 +21,6 @@ export default function Input({
         onChange={onChange}
         disabled={disabled}
       />
-      {errors && <ErrorPopup error={errors} />}
     </div>
   );
 }

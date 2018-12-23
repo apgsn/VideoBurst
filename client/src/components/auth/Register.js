@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 
 import Input from "../common/Input";
+import ErrorPopup from "../common/ErrorPopup";
 
 class Register extends Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class Register extends Component {
   };
 
   render() {
+    console.log(Object.keys(this.props.errors));
     return (
       <div id="register" style={{ marginTop: "100px" }}>
         <div className="container custom-control ">
@@ -63,6 +65,7 @@ class Register extends Component {
             />
             <input type="submit" className="btn btn-info btn-block mt-4" />
           </form>
+          <ErrorPopup />
         </div>
       </div>
     );

@@ -15,9 +15,6 @@ export const registerUser = (userData, history) => dispatch => {
     })
     .catch(err => {
       dispatch({
-        type: CLEAR_ERRORS
-      });
-      dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       });
@@ -31,7 +28,6 @@ export const loginUser = (userData, history) => dispatch => {
     .then(res => {
       // Save to local storage
       const { token } = res.data;
-      // Set token to ls
       localStorage.setItem("jwtToken", token);
       // Set token to Auth header
       setAuthToken(token);
@@ -39,12 +35,12 @@ export const loginUser = (userData, history) => dispatch => {
       const decoded = jwt_decode(token);
       // Set current user
       dispatch(setCurrentUser(decoded));
-      history.push("/");
-    })
-    .catch(err => {
       dispatch({
         type: CLEAR_ERRORS
       });
+      history.push("/");
+    })
+    .catch(err => {
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
@@ -57,6 +53,13 @@ export const setCurrentUser = decoded => {
   return {
     type: SET_CURRENT_USER,
     payload: decoded
+  };
+};
+
+// Close errors popup
+export const popErrors = decoded => {
+  return {
+    type: CLEAR_ERRORS
   };
 };
 

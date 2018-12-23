@@ -4,6 +4,7 @@ import { addVideo, loadVideos } from "../../actions/videoActions";
 import "./SearchBar.css";
 
 import Input from "../common/Input";
+import ErrorPopup from "../common/ErrorPopup";
 
 class SearchBar extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class SearchBar extends Component {
     return (
       <div className="nav-link">
         <form className="form-inline" onSubmit={this.onSubmit}>
-          {
+          {this.props.auth.isAuthenticated && (
             <div className="inner-row">
               <Input
                 name="youtube-search"
@@ -42,8 +43,9 @@ class SearchBar extends Component {
                 <i className="fas fa-arrow-circle-right" />
               </button>
             </div>
-          }
+          )}
         </form>
+        <ErrorPopup />
       </div>
     );
   }

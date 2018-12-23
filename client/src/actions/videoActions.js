@@ -13,9 +13,6 @@ export const addVideo = videoUrl => dispatch => {
     })
     .catch(err => {
       dispatch({
-        type: CLEAR_ERRORS
-      });
-      dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       });
@@ -33,9 +30,6 @@ export const likeVideo = id => dispatch => {
       });
     })
     .catch(err => {
-      dispatch({
-        type: CLEAR_ERRORS
-      });
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
@@ -55,9 +49,6 @@ export const loadVideos = () => dispatch => {
       });
     })
     .catch(err => {
-      dispatch({
-        type: CLEAR_ERRORS
-      });
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data

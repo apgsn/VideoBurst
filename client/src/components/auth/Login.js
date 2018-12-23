@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 
 import Input from "../common/Input";
+import ErrorPopup from "../common/ErrorPopup";
 
 class Login extends Component {
   constructor(props) {
@@ -19,7 +20,6 @@ class Login extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    console.log(this.state.password);
     const newLogin = {
       email: this.state.email,
       password: this.state.password
@@ -46,6 +46,7 @@ class Login extends Component {
             />
             <input type="submit" className="btn btn-info btn-block mt-4" />
           </form>
+          <ErrorPopup />
         </div>
       </div>
     );

@@ -5,7 +5,6 @@ import "./Like.css";
 
 class Like extends Component {
   onClick = e => {
-    console.log("clicky");
     this.props.likeVideo(this.props.videoElem.videoId);
   };
 

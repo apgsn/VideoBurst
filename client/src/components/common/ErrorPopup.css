@@ -1,5 +1,6 @@
 .error-popup {
   position: fixed;
+  width: auto;
   bottom: 10%;
   right: 10%;
   padding: 5;
@@ -9,12 +10,14 @@
 }
 
 .error-popup-cross {
-  font-size: 15px;
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  font-size: 25px;
   color: darkred;
   background-color: transparent;
   border: none;
   cursor: pointer;
-  float: right;
 }
 
 .hide {
