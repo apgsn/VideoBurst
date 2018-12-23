@@ -28,19 +28,16 @@ class ErrorPopup extends Component {
 
   render() {
     let errors = this.props.errors;
-    //console.log(errors);
     let classes = this.state.visible ? "" : "hide ";
     classes += "error-popup alert alert-dismissible fade show";
 
-    // Some errors (eg. Unauthorized) are being sent as plain strings
-    // instead of objects. In this case, convert to object
+    // Some errors (eg. Unauthorized) are just plain strings
+    // instead of objects. In this case, wrap an object around it.
     if (typeof errors === "string") {
-      if (errors === "Unauthorized") {
-        errors = "Please access your account to use this feature";
-      } else {
-        errors = "Internal error, please try again later";
-      }
-      errors = { error: errors };
+      errors === "Unauthorized"
+        ? (errors = "Please access your account to use this feature")
+        : (errors = "Internal error, please try again later");
+      errors = { singleError: errors };
     }
 
     return (

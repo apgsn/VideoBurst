@@ -2,8 +2,8 @@
   z-index: 1;
   position: fixed;
   top: 0;
-  height: auto;
   width: 100%;
+  height: auto;
   white-space: nowrap;
   background: #400;
 }

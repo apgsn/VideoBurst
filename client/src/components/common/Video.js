@@ -1,8 +1,20 @@
 import React, { Component } from "react";
 import Like from "./Like";
+
 import "./Video.css";
 
 class Video extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isPlayerVisible: false
+    };
+  }
+
+  onClick = e => {
+    this.setState({ isPlayerVisible: !this.state.isPlayerVisible });
+  };
+
   render() {
     const { video } = this.props;
     return (
@@ -16,9 +28,12 @@ class Video extends Component {
             <div className="container">
               <div className="row my-9 text-center">
                 <div className="col panel-icon-play">
-                  <i className="panel-icons fas fa-play" />
+                  <i
+                    className="panel-icons fas fa-play"
+                    onClick={this.onClick}
+                  />
                 </div>
-                <Like videoElem={video} />
+                <Like video={video} />
               </div>
             </div>
           </div>

@@ -5,14 +5,14 @@ import "./Like.css";
 
 class Like extends Component {
   onClick = e => {
-    this.props.likeVideo(this.props.videoElem.videoId);
+    this.props.likeVideo(this.props.video.videoId);
   };
 
   isLiked = () => {
     const userId = this.props.auth.isAuthenticated
       ? this.props.auth.user.id
       : null;
-    const liked = this.props.videoElem.likes
+    const liked = this.props.video.likes
       .map(like => like._id)
       .filter(like => like === userId).length;
     return liked ? " liked" : "";
@@ -21,15 +21,13 @@ class Like extends Component {
   render() {
     const classes = "col panel-icon-like " + this.isLiked();
     return (
-      <div className={classes} onClick={this.onClick}>
-        <i className="panel-icons fas fa-heart" />
+      <div className={classes}>
+        <i className="panel-icons fas fa-heart" onClick={this.onClick} />
       </div>
     );
   }
 }
 const mapStateToProps = state => ({
-  video: state.video,
-  errors: state.errors,
   auth: state.auth
 });
 
