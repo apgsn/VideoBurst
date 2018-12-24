@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Video from "../common/Video";
 import { connect } from "react-redux";
 import { loadVideos } from "../../actions/videoActions.js";
+import "./VideoCollection.css";
 
 class VideoCollection extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class VideoCollection extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="feed container">
         <div className="row">
           {this.props.video.videoList.map((video, index) => (
             <Video video={video} key={index} />

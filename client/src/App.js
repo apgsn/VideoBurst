@@ -5,7 +5,7 @@ import store from "./store";
 
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
-import Feed from "./components/feed/Feed";
+import VideoCollection from "./components/feed/VideoCollection";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import VideoPlayer from "./components/feed/VideoPlayer";
@@ -19,7 +19,7 @@ class App extends Component {
             <Navbar />
             <VideoPlayer />
             <Switch>
-              <Route exact path="/" component={Feed} />
+              <Route exact path="/" component={VideoCollection} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
             </Switch>
