@@ -16,12 +16,10 @@ class VideoCollection extends Component {
 
   render() {
     return (
-      <div className="feed container">
-        <div className="row">
-          {this.props.video.videoList.map((video, index) => (
-            <Video video={video} key={index} />
-          ))}
-        </div>
+      <div className="feed">
+        {this.props.video.videoList.map((video, index) => (
+          <Video video={video} key={index} />
+        ))}
       </div>
     );
   }

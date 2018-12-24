@@ -20,7 +20,7 @@ class Video extends Component {
   render() {
     const { video } = this.props;
     return (
-      <div className="video">
+      <div className="video shadow">
         <div className="video-panel">
           <div className="m-2 mx-4">
             <div className="panel-title">{video.title}</div>
@@ -40,7 +40,9 @@ class Video extends Component {
             </div>
           </div>
         </div>
-        <img src={video.thumbnail} alt={video.title} />
+        <div className="video-thumbnail">
+          <img src={video.thumbnail} alt={video.title} alt={video.title} />
+        </div>
       </div>
     );
   }
