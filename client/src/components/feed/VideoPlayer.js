@@ -1,58 +1,75 @@
 import React, { Component } from "react";
 import AnimateHeight from "react-animate-height";
 import { connect } from "react-redux";
-import { likeVideo } from "../../actions/videoActions.js";
+import { closeVideo } from "../../actions/videoActions.js";
 import "./VideoPlayer.css";
 
 import Like from "../common/Like.js";
+
+const HEIGHT_CLOSED = 70;
+const HEIGHT_OPEN = 430;
 
 class VideoPlayer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      height: 430
+      height: HEIGHT_CLOSED
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (Object.keys(nextProps.video.nowPlaying).length) {
+      this.setState({ height: HEIGHT_OPEN });
+    }
+    if (!Object.keys(nextProps.video.nowPlaying).length) {
+      this.setState({ height: HEIGHT_CLOSED });
+    }
+  }
+
   toggleView = () => {
-    this.setState({
-      height: this.state.height === 70 ? 430 : 70
-    });
+    this.props.closeVideo();
   };
 
   render() {
+    const nowPlaying = this.props.video.nowPlaying;
+    console.log();
     return (
-      <AnimateHeight duration={500} height={this.state.height}>
-        <div className="player-container">
-          <iframe
-            className="youtube-player"
-            title="Youtube player"
-            width="480"
-            height="315"
-            src="https://www.youtube.com/embed/1FGtd3oH_PQ"
-            frameBorder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            autoplay="0"
-          />
-          <div>
-            <i
-              className="fas fa-times player-cross"
-              onClick={this.toggleView}
+      nowPlaying && (
+        <AnimateHeight duration={500} height={this.state.height}>
+          <div className="player-container">
+            <iframe
+              className="youtube-player"
+              title="Youtube player"
+              width="480"
+              height="315"
+              src={
+                "https://www.youtube.com/embed/" +
+                nowPlaying.videoId +
+                "?autoplay=1"
+              }
+              frameBorder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
             />
-            {/*<Like />*/}
+            <div>
+              <i
+                className="fas fa-times player-cross"
+                onClick={this.toggleView}
+              />
+              <Like video={nowPlaying} />
+            </div>
           </div>
-        </div>
-      </AnimateHeight>
+        </AnimateHeight>
+      )
     );
   }
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  video: state.video
 });
 
 export default connect(
   mapStateToProps,
-  { likeVideo }
+  { closeVideo }
 )(VideoPlayer);

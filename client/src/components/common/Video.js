@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Like from "./Like";
+import { playVideo } from "../../actions/videoActions.js";
+import { connect } from "react-redux";
 
 import "./Video.css";
 
@@ -12,7 +14,7 @@ class Video extends Component {
   }
 
   onClick = e => {
-    this.setState({ isPlayerVisible: !this.state.isPlayerVisible });
+    this.props.playVideo(this.props.video);
   };
 
   render() {
@@ -43,4 +45,7 @@ class Video extends Component {
     );
   }
 }
-export default Video;
+export default connect(
+  null,
+  { playVideo }
+)(Video);

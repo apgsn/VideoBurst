@@ -5,10 +5,12 @@ import "./Like.css";
 
 class Like extends Component {
   onClick = e => {
-    this.props.likeVideo(this.props.video.videoId);
+    this.props.likeVideo(this.props.video, this.props.videoState.nowPlaying);
   };
 
   isLiked = () => {
+    if (!Object.keys(this.props.video).length) return "";
+
     const userId = this.props.auth.isAuthenticated
       ? this.props.auth.user.id
       : null;
@@ -28,7 +30,8 @@ class Like extends Component {
   }
 }
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  videoState: state.video
 });
 
 export default connect(

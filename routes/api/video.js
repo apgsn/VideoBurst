@@ -91,9 +91,7 @@ router.post(
           .then(user => {
             Promise.all([toggleLike(video, user), toggleLike(user, video)])
               .then(() => {
-                console.log(video);
-                console.log(user);
-                return res.json({ success: true });
+                return res.json(video);
               })
               .catch(err => {
                 console.log(err);
@@ -124,7 +122,6 @@ async function toggleLike(obj1, obj2) {
     const idx = obj1.likes
       .map(like => String(like._id))
       .indexOf(String(obj2._id));
-    console.log("idx " + idx);
     obj1.likes.splice(idx, 1);
   } else {
     // otherwise it's a "like" action: add obj2 to likes list of obj1
