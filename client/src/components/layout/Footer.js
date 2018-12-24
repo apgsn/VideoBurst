@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="col-sm" />
           <div className="github-link text-info col-sm">
             <a
-              href="https://github.com/apgsn"
+              href="https://github.com/apgsn/VideoBurst"
               target="_blank"
               rel="noopener noreferrer"
               alt="See code on Github"
