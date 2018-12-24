@@ -35,35 +35,35 @@ class Register extends Component {
     console.log(Object.keys(this.props.errors));
     return (
       <div id="register" style={{ marginTop: "100px" }}>
-        <div className="container custom-control ">
+        <div className="w-50 bg-light p-3 mb-2 border rounded shadow border-grey container custom-control ">
           <form onSubmit={this.onSubmit}>
             <Input
               name="username"
-              placeholder="username"
+              placeholder="Username"
               errors={this.props.errors.username}
               onChange={this.onChange}
             />
             <Input
               name="email"
-              placeholder="email"
+              placeholder="Email"
               errors={this.props.errors.email}
               onChange={this.onChange}
             />
             <Input
               name="password"
-              placeholder="password"
+              placeholder="Password"
               type="password"
               errors={this.props.errors.password}
               onChange={this.onChange}
             />
             <Input
               name="password2"
-              placeholder="repeat password"
+              placeholder="Repeat password"
               type="password"
               errors={this.props.errors.password2}
               onChange={this.onChange}
             />
-            <input type="submit" className="btn btn-info btn-block mt-4" />
+            <input type="submit" className="btn btn-success btn-block mt-4" />
           </form>
           <ErrorPopup />
         </div>

@@ -29,22 +29,22 @@ class Login extends Component {
   render() {
     return (
       <div id="login" style={{ marginTop: "100px" }}>
-        <div className="container">
+        <div className="w-50 bg-light p-3 mb-2 border rounded shadow border-grey container">
           <form onSubmit={this.onSubmit}>
             <Input
               name="email"
-              placeholder="email"
+              placeholder="Email"
               errors={this.props.errors.email}
               onChange={this.onChange}
             />
             <Input
               name="password"
-              placeholder="password"
+              placeholder="Password"
               type="password"
               errors={this.props.errors.password}
               onChange={this.onChange}
             />
-            <input type="submit" className="btn btn-info btn-block mt-4" />
+            <input type="submit" className="btn btn-success btn-block mt-4" />
           </form>
           <ErrorPopup />
         </div>
