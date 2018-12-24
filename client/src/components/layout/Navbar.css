@@ -12,6 +12,10 @@
   transition: color 0.3s;
 }
 
+.logout {
+  cursor: pointer;
+}
+
 .navbar-brand:hover {
   color: #f77 !important;
   animation-name: wiggleTube !important;

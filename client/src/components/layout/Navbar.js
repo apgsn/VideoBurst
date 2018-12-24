@@ -1,11 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { logoutUser } from "../../actions/authActions";
 import "./Navbar.css";
+
 import SearchBar from "../feed/SearchBar";
 
 class Navbar extends Component {
+  onLogout = e => {
+    e.preventDefault();
+    this.props.logoutUser();
+  };
+
   render() {
+    const auth = this.props.auth.isAuthenticated;
     return (
       <nav className="navbar navbar-fixed-top mb-4 navbar-expand-sm navbar-dark ">
         <div className="container">
@@ -32,16 +40,25 @@ class Navbar extends Component {
                   Leaderboard
                 </Link>
               </li>
-              <li className="nav-item my-2">
-                <Link className="nav-link" to="/register">
-                  Sign Up
-                </Link>
-              </li>
-              <li className="nav-item my-2">
-                <Link className="nav-link" to="/login">
-                  Login
-                </Link>
-              </li>
+              {!auth && (
+                <React.Fragment>
+                  <li className="nav-item my-2">
+                    <Link className="nav-link" to="/register">
+                      Sign Up
+                    </Link>
+                  </li>
+                  <li className="nav-item my-2">
+                    <Link className="nav-link" to="/login">
+                      Login
+                    </Link>
+                  </li>
+                </React.Fragment>
+              )}
+              {auth && (
+                <li className="nav-item my-2" onClick={this.onLogout}>
+                  <div className="nav-link logout">Logout</div>
+                </li>
+              )}
             </ul>
           </div>
         </div>
@@ -56,5 +73,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {}
+  { logoutUser }
 )(Navbar);

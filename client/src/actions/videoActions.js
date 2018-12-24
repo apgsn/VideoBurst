@@ -37,9 +37,6 @@ export const likeVideo = (video, nowPlaying) => dispatch => {
           payload: res.data
         });
       }
-      dispatch({
-        type: CLEAR_ERRORS
-      });
       dispatch(loadVideos());
     })
     .catch(err => {
