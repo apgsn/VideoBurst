@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Like from "./Like";
 import { playVideo } from "../../actions/videoActions.js";
 import { connect } from "react-redux";
 
+import SecondIcon from "./SecondIcon";
 import "./Video.css";
 
 class Video extends Component {
@@ -19,6 +19,7 @@ class Video extends Component {
 
   render() {
     const { video } = this.props;
+
     return (
       <div className="video shadow">
         <div className="video-panel">
@@ -35,19 +36,23 @@ class Video extends Component {
                     onClick={this.onClick}
                   />
                 </div>
-                <Like video={video} />
+                <SecondIcon video={video} />
               </div>
             </div>
           </div>
         </div>
         <div className="video-thumbnail">
-          <img src={video.thumbnail} alt={video.title} alt={video.title} />
+          <img src={video.thumbnail} alt={video.title} />
         </div>
       </div>
     );
   }
 }
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { playVideo }
 )(Video);

@@ -14,3 +14,7 @@
     transform: scale(1);
   }
 }
+
+.trash {
+  margin-left: 5px;
+}

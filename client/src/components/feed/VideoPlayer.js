@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { closeVideo } from "../../actions/videoActions.js";
 import "./VideoPlayer.css";
 
-import Like from "../common/Like.js";
+import SecondIcon from "../common/SecondIcon.js";
 
 const HEIGHT_CLOSED = 70;
 const HEIGHT_OPEN = 430;
@@ -56,7 +56,7 @@ class VideoPlayer extends Component {
                 className="fas fa-times player-cross"
                 onClick={this.toggleView}
               />
-              <Like video={nowPlaying} />
+              <SecondIcon video={nowPlaying} />
             </div>
           </div>
         </AnimateHeight>
