@@ -23,7 +23,7 @@ class SecondIcon extends Component {
     return showTrashIcon ? (
       <Trash video={video} />
     ) : (
-      <Like isLiked={isLiked} video={video} />
+      <Like video={video} isLiked={isLiked} />
     );
   }
 }

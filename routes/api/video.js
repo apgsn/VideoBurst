@@ -89,16 +89,21 @@ router.post(
       .then(video => {
         User.findById(req.user.id)
           .then(user => {
-            Promise.all([toggleLike(video, user), toggleLike(user, video)])
-              .then(() => {
-                return res.json(video);
-              })
-              .catch(err => {
-                console.log(err);
-                errors.video =
-                  "Something went wrong liking or disliking the video";
-                return res.status(400).json(errors);
-              });
+            if (String(video.user) !== req.user.id) {
+              Promise.all([toggleLike(video, user), toggleLike(user, video)])
+                .then(() => {
+                  return res.json(video);
+                })
+                .catch(err => {
+                  console.log(err);
+                  errors.video =
+                    "Something went wrong liking or disliking the video";
+                  return res.status(400).json(errors);
+                });
+            } else {
+              errors.video = "Users cannot like/dislike their own videos";
+              return res.status(400).json(errors);
+            }
           })
           .catch(err => {
             console.log(err);

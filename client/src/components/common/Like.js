@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { likeVideo } from "../../actions/videoActions";
-import "./SecondIcon.css";
 
 class Like extends Component {
   onClick = e => {

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import "./SecondIcon.css";
-
 class Trash extends Component {
   onClick = e => {
     // TODO: delete video action
