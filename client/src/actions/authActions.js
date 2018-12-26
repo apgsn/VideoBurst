@@ -64,11 +64,20 @@ export const setCurrentUser = decoded => {
 };
 
 // Logout user
-export const logoutUser = () => dispatch => {
+export const logoutUser = (logoutErr = "") => dispatch => {
   // remove token from local storage
   localStorage.removeItem("jwtToken");
   // remove auth header for future requests
   setAuthToken(false);
   // set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
+  if (logoutErr === "expired token") {
+    const errors = {
+      expired: "Session expired. Please log in again."
+    };
+    dispatch({
+      type: GET_ERRORS,
+      payload: errors
+    });
+  }
 };

@@ -7,6 +7,12 @@ class Leaderboard extends Component {
     this.props.loadLeaderboard();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.video !== this.props.video) {
+      this.props.loadLeaderboard();
+    }
+  }
+
   render() {
     return (
       <div className="w-50 pt-5 container leaderboard">
@@ -28,7 +34,8 @@ class Leaderboard extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  video: state.video
 });
 
 export default connect(
