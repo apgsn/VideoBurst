@@ -8,7 +8,7 @@ import {
   UPDATE_NOW_PLAYING
 } from "./types";
 
-// Add video and reload feed
+// add video and reload feed
 export const addVideo = videoUrl => dispatch => {
   axios
     .post("/api/video/add", videoUrl)
@@ -26,7 +26,7 @@ export const addVideo = videoUrl => dispatch => {
     });
 };
 
-// Like or dislike video
+// like or dislike video
 export const likeVideo = (video, nowPlaying) => dispatch => {
   axios
     .post("/api/video/like/" + video.videoId)
@@ -35,6 +35,27 @@ export const likeVideo = (video, nowPlaying) => dispatch => {
         dispatch({
           type: UPDATE_NOW_PLAYING,
           payload: res.data
+        });
+      }
+      dispatch(loadVideos());
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
+// delete video
+export const deleteVideo = (video, nowPlaying) => dispatch => {
+  axios
+    .delete("/api/video/delete/" + video.videoId)
+    .then(res => {
+      if (video.videoId === nowPlaying.videoId) {
+        dispatch({
+          type: UPDATE_NOW_PLAYING,
+          payload: {}
         });
       }
       dispatch(loadVideos());

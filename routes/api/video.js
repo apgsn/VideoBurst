@@ -93,6 +93,8 @@ router.post(
               errors.video = "Users cannot like/unlike their own videos";
               return res.status(400).json(errors);
             } else {
+              // add/remove video to user's likes list,
+              // and add/remove user to video's likes list
               Promise.all([toggleLike(video, user), toggleLike(user, video)])
                 .then(() => {
                   return res.json(video);
@@ -124,15 +126,60 @@ async function toggleLike(obj1, obj2) {
   if (obj1.likes.filter(like => String(like._id) === String(obj2._id)).length) {
     // if that's true, it means it's an "unlike" action:
     // remove obj2 from likes list of obj1
-    const idx = obj1.likes
-      .map(like => String(like._id))
-      .indexOf(String(obj2._id));
-    obj1.likes.splice(idx, 1);
+    obj1 = removeSingleElement(obj1, obj2._id);
   } else {
     // otherwise it's a "like" action: add obj2 to likes list of obj1
     obj1.likes.push(obj2);
   }
   return await obj1.save();
+}
+
+// @route   POST api/video/delete/:id
+// @desc    delete video
+// @access  private
+router.delete(
+  "/delete/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+    Video.findOne({ videoId: req.params.id })
+      .then(video => {
+        if (String(video.user) !== req.user.id) {
+          errors.video = "You cannot delete other people's videos";
+          return res.status(400).json(errors);
+        } else {
+          // find all users who liked this,
+          // then remove video from their liked videos
+          video.likes.forEach(userId => {
+            User.findById(userId)
+              .then(user => {
+                user = removeSingleElement(user, video._id);
+                user.save();
+              })
+              .catch(err => {
+                console.log(err);
+                errors.video = "User(s) not found";
+                return res.status(404).json(errors);
+              });
+          });
+          // remove video from collection
+          video.remove().then(() => {
+            res.json({ success: true });
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        errors.video = "Database fetch error";
+        return res.status(404).json(errors);
+      });
+  }
+);
+
+function removeSingleElement(obj, id) {
+  const idx = obj.likes.map(like => String(like._id)).indexOf(String(id));
+  obj.likes.splice(idx, 1);
+  return obj;
 }
 
 module.exports = router;
