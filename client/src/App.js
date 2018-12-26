@@ -6,6 +6,7 @@ import store from "./store";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import VideoCollection from "./components/feed/VideoCollection";
+import Leaderboard from "./components/leaderboard/Leaderboard";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import VideoPlayer from "./components/feed/VideoPlayer";
@@ -22,6 +23,7 @@ class App extends Component {
               <Route exact path="/" component={VideoCollection} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
+              <Route exact path="/leaderboard" component={Leaderboard} />
             </Switch>
             <Footer />
           </React.Fragment>

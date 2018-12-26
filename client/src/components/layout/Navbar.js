@@ -35,11 +35,11 @@ class Navbar extends Component {
               <li className="nav-item">
                 <SearchBar />
               </li>
-              {/* TODO: <li className="nav-item my-2">
+              <li className="nav-item my-2">
                 <Link className="nav-link" to="/leaderboard">
                   Leaderboard
                 </Link>
-              </li> */}
+              </li>
               {!auth && (
                 <React.Fragment>
                   <li className="nav-item my-2">
@@ -49,7 +49,7 @@ class Navbar extends Component {
                   </li>
                   <li className="nav-item my-2">
                     <Link className="nav-link" to="/login">
-                      Login
+                      Log In
                     </Link>
                   </li>
                 </React.Fragment>

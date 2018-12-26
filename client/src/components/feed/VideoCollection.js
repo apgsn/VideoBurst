@@ -5,11 +5,6 @@ import { loadVideos } from "../../actions/videoActions.js";
 import "./VideoCollection.css";
 
 class VideoCollection extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   componentDidMount() {
     this.props.loadVideos();
   }

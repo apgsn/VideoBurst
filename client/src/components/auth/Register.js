@@ -32,10 +32,10 @@ class Register extends Component {
   };
 
   render() {
-    console.log(Object.keys(this.props.errors));
     return (
       <div id="register" style={{ marginTop: "100px" }}>
         <div className="w-50 bg-light p-3 mb-2 border rounded shadow border-grey container custom-control ">
+          <h3>Sign up</h3>
           <form onSubmit={this.onSubmit}>
             <Input
               name="username"

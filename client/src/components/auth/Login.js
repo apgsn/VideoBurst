@@ -30,6 +30,7 @@ class Login extends Component {
     return (
       <div id="login" style={{ marginTop: "100px" }}>
         <div className="w-50 bg-light p-3 mb-2 border rounded shadow border-grey container">
+          <h3>Log in</h3>
           <form onSubmit={this.onSubmit}>
             <Input
               name="email"
