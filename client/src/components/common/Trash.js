@@ -4,7 +4,12 @@ import { deleteVideo } from "../../actions/videoActions";
 
 class Trash extends Component {
   onClick = e => {
-    this.props.deleteVideo(this.props.video, this.props.videoState.nowPlaying);
+    if (window.confirm("Are you sure you want to delete this video?")) {
+      this.props.deleteVideo(
+        this.props.video,
+        this.props.videoState.nowPlaying
+      );
+    }
   };
 
   render() {
