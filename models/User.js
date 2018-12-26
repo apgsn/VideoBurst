@@ -35,6 +35,10 @@ const UserSchema = new Schema({
       }
     }
   ],
+  likesCount: {
+    type: Number,
+    required: true
+  },
   social: {
     youtube: {
       type: String

@@ -141,9 +141,11 @@ async function toggleLike(obj1, obj2) {
     // if that's true, it means it's an "unlike" action:
     // remove obj2 from likes list of obj1
     obj1 = removeSingleElement(obj1, obj2._id);
+    addToUploadersCounter(obj1, false);
   } else {
     // otherwise it's a "like" action: add obj2 to likes list of obj1
     obj1.likes.push(obj2);
+    addToUploadersCounter(obj1, true);
   }
   return await obj1.save();
 }
@@ -180,6 +182,7 @@ router.delete(
           // remove video from uploader's list
           User.findById(req.user.id).then(uploader => {
             uploader = removeSingleElement(uploader, video._id, "uploads");
+            uploader.likesCount -= video.likes.length;
             uploader.save();
           });
 
@@ -202,6 +205,15 @@ function removeSingleElement(obj, id, list = "likes") {
   const idx = obj[list].map(elem => String(elem._id)).indexOf(String(id));
   obj[list].splice(idx, 1);
   return obj;
+}
+
+function addToUploadersCounter(obj, isBeingLiked) {
+  if (obj instanceof Video) {
+    User.findById(obj.user).then(uploader => {
+      isBeingLiked ? uploader.likesCount++ : uploader.likesCount--;
+      uploader.save();
+    });
+  }
 }
 
 module.exports = router;
