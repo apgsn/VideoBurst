@@ -176,9 +176,12 @@ router.delete(
                 return res.status(404).json(errors);
               });
           });
-          // remove video from collection
+          // remove video from collection and uploader's list
           video.remove().then(() => {
-            res.json({ success: true });
+            User.findById(req.user.id).then(user => {
+              user = removeSingleElement(user, video._id, "uploads");
+              user.save().then(() => res.json({ success: true }));
+            });
           });
         }
       })
