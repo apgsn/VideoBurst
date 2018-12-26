@@ -19,7 +19,6 @@ class Like extends Component {
   }
 }
 const mapStateToProps = state => ({
-  auth: state.auth,
   videoState: state.video
 });
 

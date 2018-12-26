@@ -1,3 +1,4 @@
+const assert = require("assert");
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
@@ -56,7 +57,7 @@ router.post(
             })
             .then(video => {
               video = video.data.items[0].snippet;
-              videoId;
+
               const newVideo = new Video({
                 user: req.user.id,
                 videoId,
@@ -64,7 +65,20 @@ router.post(
                 title: video.title,
                 thumbnail: video.thumbnails.medium.url
               });
-              newVideo.save().then(video => res.json(video));
+
+              newVideo
+                .save()
+                .then(video => {
+                  User.findById(req.user.id).then(user => {
+                    user.uploads.push(video._id);
+                    user.save().then(user => res.json(video));
+                  });
+                })
+                .catch(err => {
+                  console.log(err);
+                  errors.video = "Database error";
+                  return res.status(500).json(errors);
+                });
             })
             .catch(err => {
               console.log(err);
@@ -176,9 +190,10 @@ router.delete(
   }
 );
 
-function removeSingleElement(obj, id) {
-  const idx = obj.likes.map(like => String(like._id)).indexOf(String(id));
-  obj.likes.splice(idx, 1);
+function removeSingleElement(obj, id, list = "likes") {
+  assert(list in obj);
+  const idx = obj[list].map(elem => String(elem._id)).indexOf(String(id));
+  obj[list].splice(idx, 1);
   return obj;
 }
 

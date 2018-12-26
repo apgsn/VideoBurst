@@ -4,7 +4,11 @@ import { deleteVideo } from "../../actions/videoActions";
 
 class Trash extends Component {
   onClick = e => {
-    if (window.confirm("Are you sure you want to delete this video?")) {
+    if (
+      window.confirm(
+        "Are you sure you want to delete this video?\nThis cannot be undone."
+      )
+    ) {
       this.props.deleteVideo(
         this.props.video,
         this.props.videoState.nowPlaying
@@ -21,7 +25,6 @@ class Trash extends Component {
   }
 }
 const mapStateToProps = state => ({
-  auth: state.auth,
   videoState: state.video
 });
 
