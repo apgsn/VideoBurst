@@ -71,7 +71,7 @@ export const deleteVideo = (video, nowPlaying) => dispatch => {
 // load set of videos on main page
 export const loadVideos = () => dispatch => {
   axios
-    .post("/api/video/all")
+    .get("/api/video/all")
     .then(res => {
       dispatch({
         type: LIST_VIDEOS,

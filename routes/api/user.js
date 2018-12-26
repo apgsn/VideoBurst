@@ -21,9 +21,11 @@ router.post("/register", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  User.findOne({ email: req.body.email }).then(user => {
+  User.findOne({
+    $or: [{ email: req.body.email }, { username: req.body.username }]
+  }).then(user => {
     if (user) {
-      errors.email = "Email already exists";
+      errors.taken = "Email and/or user are already taken";
       return res.status(400).json(errors);
     } else {
       const newUser = new User({
@@ -86,15 +88,22 @@ router.post("/login", (req, res) => {
   });
 });
 
-// @route   GET api/users/current
-// @desc    return current user
-// @access  private
-router.get(
-  "/current",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    res.json(req.user);
-  }
-);
+// @route   GET api/users/leaderboard
+// @desc    return list of users with most liked content
+// @access  public
+router.get("/leaderboard", (req, res) => {
+  User.find({})
+    .sort([["likesCount", -1]])
+    .limit(10)
+    .then(list => {
+      return res.json(
+        list.map(user => ({
+          username: user.username,
+          likesCount: user.likesCount
+        }))
+      );
+    })
+    .catch(err => console.log(err));
+});
 
 module.exports = router;

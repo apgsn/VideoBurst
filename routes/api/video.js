@@ -17,7 +17,7 @@ const User = require("../../models/User");
 // @route   POST api/video/all
 // @desc    fetch all videos from db
 // @access  public
-router.post("/all", (req, res) => {
+router.get("/all", (req, res) => {
   Video.find({})
     .populate("user", ["username"])
     .sort({ date: -1 })
@@ -150,7 +150,7 @@ async function toggleLike(obj1, obj2) {
   return await obj1.save();
 }
 
-// @route   POST api/video/delete/:id
+// @route   DELETE api/video/delete/:id
 // @desc    delete video
 // @access  private
 router.delete(
