@@ -176,12 +176,16 @@ router.delete(
                 return res.status(404).json(errors);
               });
           });
-          // remove video from collection and uploader's list
+
+          // remove video from uploader's list
+          User.findById(req.user.id).then(uploader => {
+            uploader = removeSingleElement(uploader, video._id, "uploads");
+            uploader.save();
+          });
+
+          // remove video from collection
           video.remove().then(() => {
-            User.findById(req.user.id).then(user => {
-              user = removeSingleElement(user, video._id, "uploads");
-              user.save().then(() => res.json({ success: true }));
-            });
+            res.json({ success: true });
           });
         }
       })
