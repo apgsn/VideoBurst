@@ -26,11 +26,11 @@
   cursor: pointer;
 }
 
-.profile-link {
+.panel-user > .profile-link {
   color: wheat;
 }
 
-.profile-link:hover {
+.panel-user > .profile-link:hover {
   color: white;
   text-decoration: none;
 }

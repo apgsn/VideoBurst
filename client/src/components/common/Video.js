@@ -28,11 +28,9 @@ class Video extends Component {
             <div className="panel-title">{video.title}</div>
             <div className="panel-user user my-3">
               Uploaded by{" "}
-              <strong>
-                <Link to={"/u/" + video.user.username} className="profile-link">
-                  {video.user.username}
-                </Link>
-              </strong>
+              <Link to={"/u/" + video.user.username} className="profile-link">
+                <strong>{video.user.username}</strong>
+              </Link>
             </div>
             <div className="container">
               <div className="row my-9 text-center">
