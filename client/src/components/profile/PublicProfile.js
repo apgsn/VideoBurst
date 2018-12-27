@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getProfile } from "../../actions/userActions.js";
-import "./PublicProfile.css";
 
 class PublicProfile extends Component {
   componentDidMount() {
