@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOAD_LEADERBOARD, GET_ERRORS } from "./types";
+import { LOAD_LEADERBOARD, GET_ERRORS, GET_PROFILE } from "./types";
 
 // load leaderboard
 export const loadLeaderboard = () => dispatch => {
@@ -8,6 +8,24 @@ export const loadLeaderboard = () => dispatch => {
     .then(res => {
       dispatch({
         type: LOAD_LEADERBOARD,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
+// get public profile of user
+export const getProfile = username => dispatch => {
+  axios
+    .get("/api/user/u/" + username)
+    .then(res => {
+      dispatch({
+        type: GET_PROFILE,
         payload: res.data
       });
     })

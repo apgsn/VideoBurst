@@ -18,8 +18,11 @@ class Leaderboard extends Component {
       <div className="w-50 pt-5 container leaderboard">
         <h3>Leaderboard</h3>
         <ul className="row center-block list-group shadow">
-          {this.props.user.leaderboard.map(user => (
-            <li className="p-3 list-group-item d-flex justify-content-between align-items-center">
+          {this.props.user.leaderboard.map((user, index) => (
+            <li
+              key={index}
+              className="p-3 list-group-item d-flex justify-content-between align-items-center"
+            >
               {user.username}
               <span className="badge badge-danger badge-pill">
                 Likes received: &nbsp;

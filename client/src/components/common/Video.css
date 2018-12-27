@@ -25,3 +25,12 @@
   font-size: 40px;
   cursor: pointer;
 }
+
+.profile-link {
+  color: wheat;
+}
+
+.profile-link:hover {
+  color: white;
+  text-decoration: none;
+}

@@ -1,7 +1,8 @@
-import { LOAD_LEADERBOARD } from "../actions/types";
+import { LOAD_LEADERBOARD, GET_PROFILE } from "../actions/types";
 
 const initialState = {
-  leaderboard: []
+  leaderboard: [],
+  profile: {}
 };
 
 export default function(state = initialState, action) {
@@ -10,6 +11,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         leaderboard: action.payload
+      };
+    case GET_PROFILE:
+      return {
+        ...state,
+        profile: action.payload
       };
     default:
       return state;

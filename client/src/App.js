@@ -13,6 +13,7 @@ import Leaderboard from "./components/leaderboard/Leaderboard";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import VideoPlayer from "./components/feed/VideoPlayer";
+import PublicProfile from "./components/profile/PublicProfile";
 
 // IIFE for automatic check of expired tokens (every minute)
 (() => {
@@ -42,6 +43,7 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/leaderboard" component={Leaderboard} />
+              <Route exact path="/u/:username" component={PublicProfile} />
             </Switch>
             <Footer />
           </React.Fragment>

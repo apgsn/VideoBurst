@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { playVideo } from "../../actions/videoActions.js";
 import { connect } from "react-redux";
 
@@ -26,7 +27,12 @@ class Video extends Component {
           <div className="m-2 mx-4">
             <div className="panel-title">{video.title}</div>
             <div className="panel-user user my-3">
-              Uploaded by <strong>{video.user.username}</strong>
+              Uploaded by{" "}
+              <strong>
+                <Link to={"/u/" + video.user.username} className="profile-link">
+                  {video.user.username}
+                </Link>
+              </strong>
             </div>
             <div className="container">
               <div className="row my-9 text-center">
