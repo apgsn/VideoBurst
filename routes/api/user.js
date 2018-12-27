@@ -10,7 +10,7 @@ const bcrypt = require("bcryptjs");
 const validateRegister = require("../../validation/register");
 const validateLogin = require("../../validation/login");
 
-// @route   POST api/users/register
+// @route   POST api/user/register
 // @desc    register users
 // @access  public
 router.post("/register", (req, res) => {
@@ -49,7 +49,7 @@ router.post("/register", (req, res) => {
   });
 });
 
-// @route   POST api/users/login
+// @route   POST api/user/login
 // @desc    login, returning jwt token if successful
 // @access  public
 router.post("/login", (req, res) => {
@@ -88,7 +88,7 @@ router.post("/login", (req, res) => {
   });
 });
 
-// @route   GET api/users/leaderboard
+// @route   GET api/user/leaderboard
 // @desc    return list of users with most liked content
 // @access  public
 router.get("/leaderboard", (req, res) => {
@@ -105,5 +105,41 @@ router.get("/leaderboard", (req, res) => {
     })
     .catch(err => console.log(err));
 });
+
+// @route   GET api/user/u/:username
+// @desc    return public profile of a user
+// @access  public
+router.get("/u/:username", (req, res) => {
+  const errors = {};
+
+  User.findOne({ username: req.params.username })
+    .then(user => {
+      if (!user) {
+        errors.noUser = "This user doesn't exist";
+        return res.status(404).json(errors);
+      }
+      return res.json({
+        username: user.username,
+        likesGiven: user.likes.length,
+        likesCount: user.likesCount,
+        uploads: user.uploads,
+        date: user.date
+      });
+    })
+    .catch(err => console.log(err));
+});
+
+// @route   GET api/user/profile
+// @desc    access personal profile
+// @access  private
+router.get(
+  "/profile",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findById(req.user.id)
+      .then(user => res.json(user))
+      .catch(err => res.status(404).json(err));
+  }
+);
 
 module.exports = router;
