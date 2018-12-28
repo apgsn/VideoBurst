@@ -13,7 +13,7 @@ class Navbar extends Component {
   };
 
   render() {
-    const auth = this.props.auth.isAuthenticated;
+    const { auth } = this.props;
     return (
       <nav className="navbar navbar-fixed-top mb-4 navbar-expand-sm navbar-dark ">
         <div className="container">
@@ -40,7 +40,21 @@ class Navbar extends Component {
                   Leaderboard
                 </Link>
               </li>
-              {!auth && (
+              {auth.isAuthenticated ? (
+                <React.Fragment>
+                  <li className="nav-item my-2">
+                    <Link
+                      to={"/u/" + auth.user.username}
+                      className="nav-link my-profile"
+                    >
+                      <strong>{auth.user.username}</strong>
+                    </Link>
+                  </li>
+                  <li className="nav-item my-2" onClick={this.onLogout}>
+                    <div className="nav-link logout">Logout</div>
+                  </li>
+                </React.Fragment>
+              ) : (
                 <React.Fragment>
                   <li className="nav-item my-2">
                     <Link className="nav-link" to="/register">
@@ -53,11 +67,6 @@ class Navbar extends Component {
                     </Link>
                   </li>
                 </React.Fragment>
-              )}
-              {auth && (
-                <li className="nav-item my-2" onClick={this.onLogout}>
-                  <div className="nav-link logout">Logout</div>
-                </li>
               )}
             </ul>
           </div>
