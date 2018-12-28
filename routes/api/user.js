@@ -115,9 +115,11 @@ router.get("/u/:username", (req, res) => {
   const errors = {};
 
   User.findOne({ username: req.params.username })
-    .populate("uploads")
+    .populate({
+      path: "uploads",
+      populate: { path: "user", select: "username" }
+    })
     .then(user => {
-      console.log(user);
       if (!user) {
         errors.noUser = "This user doesn't exist";
         return res.status(404).json(errors);

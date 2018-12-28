@@ -3,7 +3,7 @@ const Validator = require("validator");
 module.exports = function validateRegister(data) {
   const usrRange = {
     min: 3,
-    max: 30
+    max: 15
   };
   const pwdRange = {
     min: 6,

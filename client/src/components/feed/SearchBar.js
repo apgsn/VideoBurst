@@ -21,7 +21,6 @@ class SearchBar extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    console.log(this.state.input);
     this.props.addVideo({ videoUrl: this.state.input });
     this.props.loadVideos();
   };

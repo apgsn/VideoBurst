@@ -169,7 +169,7 @@ router.delete(
           video.likes.forEach(userId => {
             User.findById(userId)
               .then(user => {
-                user = removeSingleElement(user, _id);
+                user = removeSingleElement(user, video._id);
                 user.save();
               })
               .catch(err => {
@@ -181,8 +181,8 @@ router.delete(
 
           // remove video from uploader's list
           User.findById(req.user.id).then(uploader => {
-            uploader = removeSingleElement(uploader, _id, "uploads");
             uploader.likesCount -= video.likes.length;
+            uploader = removeSingleElement(uploader, video._id, "uploads");
             uploader.save();
           });
 

@@ -2,10 +2,19 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getProfile } from "../../actions/userActions.js";
 
+import Video from "../common/Video.js";
+
 class PublicProfile extends Component {
   componentDidMount() {
     const username = this.props.match.params.username;
     if (username) {
+      this.props.getProfile(username);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const username = this.props.match.params.username;
+    if (nextProps.video !== this.props.video) {
       this.props.getProfile(username);
     }
   }
@@ -27,14 +36,24 @@ class PublicProfile extends Component {
             <div className="my-1">Likes received: {profile.likesCount}</div>
           </div>
         </div>
-        <h4 className="my-4">Uploads:</h4> {/*TODO*/}
+        {profile.uploads.length !== 0 && (
+          <React.Fragment>
+            <h4 className="my-4">Uploads:</h4>
+            <div className="feed profile">
+              {profile.uploads.map((video, index) => {
+                return <Video key={index} video={video} />;
+              })}
+            </div>
+          </React.Fragment>
+        )}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  video: state.video
 });
 
 export default connect(
