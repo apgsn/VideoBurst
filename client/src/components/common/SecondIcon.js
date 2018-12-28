@@ -15,7 +15,7 @@ class SecondIcon extends Component {
     const userId = auth.isAuthenticated ? auth.user.id : null;
 
     const isLiked = Boolean(
-      video.likes.map(like => like._id).filter(like => like === userId).length
+      video.likes.filter(like => String(like) === String(userId)).length
     );
 
     const showTrashIcon = userId === video.user._id;

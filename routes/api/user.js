@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const User = require("../../models/User");
+const Video = require("../../models/Video");
+
 const jwt = require("jsonwebtoken");
 const secretOrKey = require("../../config/keys").secretOrKey;
 const passport = require("passport");
@@ -113,7 +115,9 @@ router.get("/u/:username", (req, res) => {
   const errors = {};
 
   User.findOne({ username: req.params.username })
+    .populate("uploads")
     .then(user => {
+      console.log(user);
       if (!user) {
         errors.noUser = "This user doesn't exist";
         return res.status(404).json(errors);

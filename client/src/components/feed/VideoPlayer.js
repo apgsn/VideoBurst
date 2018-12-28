@@ -40,7 +40,7 @@ class VideoPlayer extends Component {
             <iframe
               className="youtube-player"
               title="Youtube player"
-              width="480"
+              width="560"
               height="315"
               src={
                 "https://www.youtube.com/embed/" +

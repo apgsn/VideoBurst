@@ -24,10 +24,8 @@ const VideoSchema = new Schema({
   // list of users who liked this video
   likes: [
     {
-      user: {
-        type: Schema.Types.ObjectId,
-        ref: "users"
-      }
+      type: Schema.Types.ObjectId,
+      ref: "users"
     }
   ],
   date: {
@@ -36,4 +34,4 @@ const VideoSchema = new Schema({
   }
 });
 
-module.exports = Video = mongoose.model("videos", VideoSchema);
+module.exports = Video = mongoose.model("videos", VideoSchema, "videos");

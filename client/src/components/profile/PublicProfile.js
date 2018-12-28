@@ -4,8 +4,9 @@ import { getProfile } from "../../actions/userActions.js";
 
 class PublicProfile extends Component {
   componentDidMount() {
-    if (this.props.match.params.username) {
-      this.props.getProfile(this.props.match.params.username);
+    const username = this.props.match.params.username;
+    if (username) {
+      this.props.getProfile(username);
     }
   }
 

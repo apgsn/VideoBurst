@@ -137,14 +137,14 @@ router.post(
 
 async function toggleLike(obj1, obj2) {
   // check if obj2 is already included in likes list of obj1
-  if (obj1.likes.filter(like => String(like._id) === String(obj2._id)).length) {
+  if (obj1.likes.filter(like => String(like) === String(obj2._id)).length) {
     // if that's true, it means it's an "unlike" action:
     // remove obj2 from likes list of obj1
-    obj1 = removeSingleElement(obj1, obj2._id);
+    obj1 = removeSingleElement(obj1, obj2);
     addToUploadersCounter(obj1, false);
   } else {
     // otherwise it's a "like" action: add obj2 to likes list of obj1
-    obj1.likes.push(obj2);
+    obj1.likes.push(obj2._id);
     addToUploadersCounter(obj1, true);
   }
   return await obj1.save();
@@ -169,7 +169,7 @@ router.delete(
           video.likes.forEach(userId => {
             User.findById(userId)
               .then(user => {
-                user = removeSingleElement(user, video._id);
+                user = removeSingleElement(user, _id);
                 user.save();
               })
               .catch(err => {
@@ -181,7 +181,7 @@ router.delete(
 
           // remove video from uploader's list
           User.findById(req.user.id).then(uploader => {
-            uploader = removeSingleElement(uploader, video._id, "uploads");
+            uploader = removeSingleElement(uploader, _id, "uploads");
             uploader.likesCount -= video.likes.length;
             uploader.save();
           });

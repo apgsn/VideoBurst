@@ -20,19 +20,15 @@ const UserSchema = new Schema({
   // list of videos this user uploaded
   uploads: [
     {
-      video: {
-        type: Schema.Types.ObjectId,
-        ref: "videos"
-      }
+      type: Schema.Types.ObjectId,
+      ref: "videos"
     }
   ],
   // list of videos this user liked
   likes: [
     {
-      video: {
-        type: Schema.Types.ObjectId,
-        ref: "videos"
-      }
+      type: Schema.Types.ObjectId,
+      ref: "videos"
     }
   ],
   likesCount: {
@@ -62,4 +58,4 @@ const UserSchema = new Schema({
   }
 });
 
-module.exports = User = mongoose.model("users", UserSchema);
+module.exports = User = mongoose.model("users", UserSchema, "users");
