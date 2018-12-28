@@ -41,7 +41,13 @@ class PublicProfile extends Component {
             <h4 className="my-4">Uploads:</h4>
             <div className="feed profile">
               {profile.uploads.map((video, index) => {
-                return <Video key={index} video={video} />;
+                return (
+                  <Video
+                    key={index}
+                    video={video}
+                    loading={this.state.loading}
+                  />
+                );
               })}
             </div>
           </React.Fragment>

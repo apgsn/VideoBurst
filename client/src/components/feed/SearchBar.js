@@ -11,18 +11,28 @@ class SearchBar extends Component {
     super(props);
     this.state = {
       input: "",
-      errors: {}
+      errors: {},
+      loading: false
     };
   }
-
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.video !== this.props.video ||
+      nextProps.errors !== this.props.errors
+    ) {
+      this.setState({ loading: false });
+    }
+  }
   onChange = e => {
     this.setState({ input: e.target.value });
   };
 
   onSubmit = e => {
     e.preventDefault();
-    this.props.addVideo({ videoUrl: this.state.input });
-    this.props.loadVideos();
+    if (!this.state.loading) {
+      this.setState({ loading: true });
+      this.props.addVideo({ videoUrl: this.state.input });
+    } else console.log("blocked");
   };
 
   render() {
@@ -37,9 +47,14 @@ class SearchBar extends Component {
                 type="search"
                 onChange={this.onChange}
                 errors={this.props.errors.video}
+                loading={this.state.loading}
               />
               <button className="btn btn-danger mx-1" type="submit">
-                <i className="fas fa-arrow-circle-right" />
+                {this.state.loading ? (
+                  <i className="fas fa-copyright spin" />
+                ) : (
+                  <i className="fas fa-arrow-circle-right" />
+                )}
               </button>
             </div>
           )}

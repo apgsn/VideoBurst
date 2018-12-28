@@ -1,4 +1,5 @@
 import React from "react";
+import "./Input.css";
 
 export default function Input({
   name,
@@ -7,9 +8,13 @@ export default function Input({
   errors,
   type = "text",
   onChange,
-  disabled
+  disabled,
+  loading = false
 }) {
-  let classes = "form-control " + (errors ? "is-invalid" : "");
+  let classes =
+    "form-control" +
+    (errors ? " is-invalid" : "") +
+    (loading ? " loading" : "");
   return (
     <div className="form-group">
       <input
