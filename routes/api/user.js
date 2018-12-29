@@ -1,3 +1,4 @@
+const assert = require("assert");
 const express = require("express");
 const router = express.Router();
 
@@ -129,21 +130,52 @@ router.get("/u/:username", (req, res) => {
         likesGiven: user.likes.length,
         likesCount: user.likesCount,
         uploads: user.uploads,
+        likes: user.likes,
         date: user.date
       });
     })
     .catch(err => console.log(err));
 });
 
-// @route   GET api/user/profile
-// @desc    access personal profile
+// @route   DELETE api/user/u/:username
+// @desc    delete user account
 // @access  private
-router.get(
-  "/profile",
+router.delete(
+  "/u/:username",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    const errors = {};
     User.findById(req.user.id)
-      .then(user => res.json(user))
+      .then(user => {
+        if (user) {
+          if (String(user.username) !== req.params.username) {
+            errors.video = "You cannot delete other people's accounts";
+            return res.status(400).json(errors);
+          } else {
+            // find all uploaded videos,
+            // then remove them all
+            user.uploads.forEach(videoId => {
+              Video.findById(videoId)
+                .then(video => {
+                  video.remove();
+                })
+                .catch(err => {
+                  console.log(err);
+                });
+            });
+
+            // remove user
+            user
+              .remove()
+              .then(() => {
+                res.json({ success: true });
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          }
+        }
+      })
       .catch(err => res.status(404).json(err));
   }
 );
