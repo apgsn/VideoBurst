@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getProfile } from "../../actions/userActions.js";
 
 import Video from "../common/Video.js";
+import Description from "./Description.js";
 
 class PublicProfile extends Component {
   componentDidMount() {
@@ -36,9 +37,10 @@ class PublicProfile extends Component {
             <div className="my-1">Likes received: {profile.likesCount}</div>
           </div>
         </div>
+        <Description profile={profile} />
         {profile.uploads && Boolean(profile.uploads.length) && (
           <React.Fragment>
-            <h4 className="my-4">Uploads:</h4>
+            <h4 className="my-3">Uploads</h4>
             <div className="feed profile">
               {profile.uploads.map((video, index) => {
                 return <Video key={index} video={video} />;

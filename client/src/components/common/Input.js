@@ -12,8 +12,8 @@ export default function Input({
   loading = false
 }) {
   let classes =
-    "form-control" +
-    (errors ? " is-invalid" : "") +
+    "form-control " +
+    (errors ? " is-invalid " : "") +
     (loading ? " loading" : "");
   return (
     <div className="form-group">

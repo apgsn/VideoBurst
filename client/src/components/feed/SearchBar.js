@@ -38,7 +38,11 @@ class SearchBar extends Component {
   render() {
     return (
       <div className="nav-link">
-        <form className="form-inline" onSubmit={this.onSubmit}>
+        <form
+          className="form-inline"
+          autoComplete="off"
+          onSubmit={this.onSubmit}
+        >
           {this.props.auth.isAuthenticated && (
             <div className="inner-row">
               <Input

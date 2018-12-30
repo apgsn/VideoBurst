@@ -131,7 +131,9 @@ router.get("/u/:username", (req, res) => {
         likesCount: user.likesCount,
         uploads: user.uploads,
         likes: user.likes,
-        date: user.date
+        date: user.date,
+        bio: user.bio,
+        social: user.social
       });
     })
     .catch(err => console.log(err));
