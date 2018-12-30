@@ -36,3 +36,21 @@ export const getProfile = username => dispatch => {
       });
     });
 };
+
+// change profile bio
+export const changeBio = bio => dispatch => {
+  axios
+    .post("/api/user/profile/bio", bio)
+    .then(res => {
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};

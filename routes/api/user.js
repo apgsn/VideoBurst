@@ -91,6 +91,43 @@ router.post("/login", (req, res) => {
   });
 });
 
+// @route   POST api/user/profile/bio
+// @desc    edit profile bio
+// @access  private
+router.post(
+  "/profile/bio",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+
+    User.findById(req.user.id)
+      .populate({
+        path: "uploads",
+        populate: { path: "user", select: "username" }
+      })
+      .then(user => {
+        if (!user) {
+          errors.noUser = "This user doesn't exist";
+          return res.status(404).json(errors);
+        }
+        user.bio = req.body.bio;
+        user.save().then(
+          res.json({
+            username: user.username,
+            likesGiven: user.likes.length,
+            likesCount: user.likesCount,
+            uploads: user.uploads,
+            likes: user.likes,
+            date: user.date,
+            bio: user.bio,
+            social: user.social
+          })
+        );
+      })
+      .catch(err => console.log(err));
+  }
+);
+
 // @route   GET api/user/leaderboard
 // @desc    return list of users with most liked content
 // @access  public

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getProfile } from "../../actions/userActions.js";
+import { changeBio } from "../../actions/userActions.js";
 
 class Description extends Component {
   constructor(props) {
@@ -17,6 +17,10 @@ class Description extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ bio: this.props.profile.bio });
+  }
+
   onBioIconClick = e => {
     e.preventDefault();
     this.setState({ editingBio: !this.state.editingBio });
@@ -28,7 +32,9 @@ class Description extends Component {
 
   onBioSubmit = e => {
     e.preventDefault();
+    this.onBioIconClick(e);
     console.log(this.state.bio);
+    this.props.changeBio({ bio: this.state.bio });
   };
 
   render() {
@@ -36,7 +42,6 @@ class Description extends Component {
     const { isAuthenticated } = this.props.auth;
     const personal =
       isAuthenticated && profile.username === this.props.auth.user.username;
-
     return (
       <React.Fragment>
         <h4 className="my-3">
@@ -57,8 +62,8 @@ class Description extends Component {
             type="submit"
             value="submit"
           >
-            <textarea onChange={this.onBioChange} />
-            <button className="btn btn-success mx-1" type="submit">
+            <textarea onChange={this.onBioChange} value={this.state.bio} />
+            <button className="btn btn-primary mx-1" type="submit">
               <i className="fas fa-arrow-circle-right" />
             </button>
           </form>
@@ -128,7 +133,7 @@ class Description extends Component {
             ) : null}
           </div>
         ) : (
-          <span class="font-italic">
+          <span className="font-italic">
             {profile.username} is not a social type
           </span>
         )}
@@ -143,5 +148,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getProfile }
+  { changeBio }
 )(Description);
