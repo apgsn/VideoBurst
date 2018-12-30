@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { changeBio } from "../../actions/userActions.js";
+import { changeDescription, getProfile } from "../../actions/userActions.js";
+
+import Input from "../common/Input.js";
 
 class Description extends Component {
   constructor(props) {
@@ -18,31 +20,52 @@ class Description extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user.profile !== this.props.user.profile) {
+    if (nextProps.user.profile.bio !== this.props.user.profile.bio) {
       this.setState({
-        bio: nextProps.user.profile.bio,
-        youtube: nextProps.user.profile.youtube,
-        twitter: nextProps.user.profile.twitter,
-        facebook: nextProps.user.profile.facebook,
-        instagram: nextProps.user.profile.instagram,
-        website: nextProps.user.profile.website
+        bio: nextProps.user.profile.bio
+      });
+    }
+    if (nextProps.user.profile.social !== this.props.user.profile.social) {
+      this.setState({
+        youtube: nextProps.user.profile.social.youtube,
+        twitter: nextProps.user.profile.social.twitter,
+        facebook: nextProps.user.profile.social.facebook,
+        instagram: nextProps.user.profile.social.instagram,
+        website: nextProps.user.profile.social.website
       });
     }
   }
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   onBioIconClick = e => {
     e.preventDefault();
     this.setState({ editingBio: !this.state.editingBio });
   };
 
-  onBioChange = e => {
-    this.setState({ bio: e.target.value });
-  };
-
   onBioSubmit = e => {
     e.preventDefault();
     this.onBioIconClick(e);
-    this.props.changeBio({ bio: this.state.bio });
+    this.props.changeDescription({ data: this.state.bio, type: "bio" });
+  };
+
+  onSocialIconClick = e => {
+    e.preventDefault();
+    this.setState({ editingSocial: !this.state.editingSocial });
+  };
+
+  onSocialSubmit = e => {
+    e.preventDefault();
+    this.onSocialIconClick(e);
+    const newSocial = {
+      youtube: this.state.youtube,
+      twitter: this.state.twitter,
+      facebook: this.state.facebook,
+      instagram: this.state.instagram,
+      website: this.state.website
+    };
+    this.props.changeDescription({ data: newSocial, type: "social" });
   };
 
   render() {
@@ -78,14 +101,18 @@ class Description extends Component {
             type="submit"
             value="submit"
           >
-            <textarea onChange={this.onBioChange} value={this.state.bio} />
+            <textarea
+              name="bio"
+              onChange={this.onChange}
+              value={this.state.bio}
+            />
             <button className="btn btn-primary mx-1" type="submit">
               <i className="fas fa-arrow-circle-right" />
             </button>
           </form>
         ) : (
           <p className="bio">
-            {profile.bio ? (
+            {this.state.bio && this.state.bio !== "" ? (
               <span>{this.state.bio}</span>
             ) : (
               <span className="font-italic">
@@ -95,8 +122,71 @@ class Description extends Component {
           </p>
         )}
 
-        <h4 className="my-3">Social</h4>
-        {profile.social && Object.keys(profile.social).length ? (
+        {/* social */}
+
+        <h4 className="my-3">
+          Social{" "}
+          {personal ? (
+            this.state.editingSocial ? (
+              <i
+                className="fas fa-times text-primary edit mx-2"
+                style={{ cursor: "pointer" }}
+                onClick={this.onSocialIconClick}
+              />
+            ) : (
+              <i
+                className="fas fa-edit text-primary edit mx-2"
+                style={{ cursor: "pointer" }}
+                onClick={this.onSocialIconClick}
+              />
+            )
+          ) : null}
+        </h4>
+        {this.state.editingSocial ? (
+          <div className="row social input">
+            <form
+              className="form-inline"
+              autoComplete="off"
+              onSubmit={this.onSocialSubmit}
+              type="submit"
+              value="submit"
+            >
+              <Input
+                placeholder="Link to Youtube profile"
+                value={this.state.youtube}
+                name="youtube"
+                onChange={this.onChange}
+              />
+              <Input
+                placeholder="Link to Twitter profile"
+                value={this.state.twitter}
+                name="twitter"
+                onChange={this.onChange}
+              />
+              <Input
+                placeholder="Link to Facebook profile"
+                value={this.state.facebook}
+                name="facebook"
+                onChange={this.onChange}
+              />
+              <Input
+                placeholder="Link to Instagram profile"
+                value={this.state.instagram}
+                name="instagram"
+                onChange={this.onChange}
+              />
+              <Input
+                placeholder="Link to a personal website"
+                value={this.state.website}
+                name="website"
+                onChange={this.onChange}
+              />{" "}
+              <button className="btn btn-primary mx-1" type="submit">
+                <i className="fas fa-arrow-circle-right" />
+              </button>
+            </form>
+          </div>
+        ) : profile.social && Object.keys(profile.social).length ? (
           <div className="row social">
             {profile.social.youtube ? (
               <a
@@ -166,5 +256,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { changeBio }
+  { changeDescription, getProfile }
 )(Description);

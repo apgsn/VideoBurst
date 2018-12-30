@@ -1,16 +1,16 @@
 import React from "react";
 import "./Input.css";
 
-export default function Input({
+const Input = ({
   name,
   placeholder,
   value,
   errors,
   type = "text",
   onChange,
-  disabled,
+  disabled = false,
   loading = false
-}) {
+}) => {
   let classes =
     "form-control " +
     (errors ? " is-invalid " : "") +
@@ -28,4 +28,6 @@ export default function Input({
       />
     </div>
   );
-}
+};
+
+export default Input;

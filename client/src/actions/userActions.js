@@ -38,9 +38,9 @@ export const getProfile = username => dispatch => {
 };
 
 // change profile bio
-export const changeBio = bio => dispatch => {
+export const changeDescription = req => dispatch => {
   axios
-    .post("/api/user/profile/bio", bio)
+    .post("/api/user/profile/" + req.type, { data: req.data })
     .then(res => {
       dispatch({
         type: GET_PROFILE,

@@ -95,7 +95,7 @@ router.post("/login", (req, res) => {
 // @desc    edit profile bio
 // @access  private
 router.post(
-  "/profile/bio",
+  "/profile/:type",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const errors = {};
@@ -110,7 +110,20 @@ router.post(
           errors.noUser = "This user doesn't exist";
           return res.status(404).json(errors);
         }
-        user.bio = req.body.bio;
+        if (req.params.type === "bio") {
+          console.log(req.params.type);
+          user.bio = req.body.data;
+        } else if (req.params.type === "social") {
+          user.social.youtube = req.body.data.youtube;
+          user.social.twitter = req.body.data.twitter;
+          user.social.facebook = req.body.data.facebook;
+          user.social.instagram = req.body.data.instagram;
+          user.social.website = req.body.data.website;
+        } else {
+          errors.request = "Bad request";
+          return res.status(400).json(errors);
+        }
+        console.log(req.body);
         user.save().then(
           res.json({
             username: user.username,
