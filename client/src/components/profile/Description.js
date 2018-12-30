@@ -18,7 +18,16 @@ class Description extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ bio: this.props.profile.bio });
+    if (nextProps.user.profile !== this.props.user.profile) {
+      this.setState({
+        bio: nextProps.user.profile.bio,
+        youtube: nextProps.user.profile.youtube,
+        twitter: nextProps.user.profile.twitter,
+        facebook: nextProps.user.profile.facebook,
+        instagram: nextProps.user.profile.instagram,
+        website: nextProps.user.profile.website
+      });
+    }
   }
 
   onBioIconClick = e => {
@@ -33,12 +42,11 @@ class Description extends Component {
   onBioSubmit = e => {
     e.preventDefault();
     this.onBioIconClick(e);
-    console.log(this.state.bio);
     this.props.changeBio({ bio: this.state.bio });
   };
 
   render() {
-    const { profile } = this.props;
+    const { profile } = this.props.user;
     const { isAuthenticated } = this.props.auth;
     const personal =
       isAuthenticated && profile.username === this.props.auth.user.username;
@@ -47,11 +55,19 @@ class Description extends Component {
         <h4 className="my-3">
           About this user{" "}
           {personal ? (
-            <i
-              className="fas fa-edit text-primary edit mx-2"
-              style={{ cursor: "pointer" }}
-              onClick={this.onBioIconClick}
-            />
+            this.state.editingBio ? (
+              <i
+                className="fas fa-times text-primary edit mx-2"
+                style={{ cursor: "pointer" }}
+                onClick={this.onBioIconClick}
+              />
+            ) : (
+              <i
+                className="fas fa-edit text-primary edit mx-2"
+                style={{ cursor: "pointer" }}
+                onClick={this.onBioIconClick}
+              />
+            )
           ) : null}
         </h4>
         {this.state.editingBio ? (
@@ -70,7 +86,7 @@ class Description extends Component {
         ) : (
           <p className="bio">
             {profile.bio ? (
-              <span>{profile.bio}</span>
+              <span>{this.state.bio}</span>
             ) : (
               <span className="font-italic">
                 {profile.username} doesn't have a bio
@@ -78,6 +94,7 @@ class Description extends Component {
             )}
           </p>
         )}
+
         <h4 className="my-3">Social</h4>
         {profile.social && Object.keys(profile.social).length ? (
           <div className="row social">
@@ -143,7 +160,8 @@ class Description extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  user: state.user
 });
 
 export default connect(

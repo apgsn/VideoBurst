@@ -39,7 +39,7 @@ class PublicProfile extends Component {
             <div className="my-1">Likes received: {profile.likesCount}</div>
           </div>
         </div>
-        <Description profile={profile} />
+        <Description />
         {profile.uploads && Boolean(profile.uploads.length) && (
           <React.Fragment>
             <h4 className="my-3">Uploads</h4>
