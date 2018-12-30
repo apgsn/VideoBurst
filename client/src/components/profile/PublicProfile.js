@@ -16,7 +16,7 @@ class PublicProfile extends Component {
   componentWillReceiveProps(nextProps) {
     if (
       nextProps.video !== this.props.video ||
-      this.props.match.params.username !== nextProps.match.params.username
+      this.props.match !== nextProps.match
     ) {
       this.props.getProfile(nextProps.match.params.username);
     }

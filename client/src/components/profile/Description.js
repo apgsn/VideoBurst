@@ -20,21 +20,20 @@ class Description extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user.profile.bio !== this.props.user.profile.bio) {
+    if (nextProps.user.profile.bio !== this.state.bio) {
       this.setState({
         bio: nextProps.user.profile.bio
       });
     }
-    if (nextProps.user.profile.social !== this.props.user.profile.social) {
-      this.setState({
-        youtube: nextProps.user.profile.social.youtube,
-        twitter: nextProps.user.profile.social.twitter,
-        facebook: nextProps.user.profile.social.facebook,
-        instagram: nextProps.user.profile.social.instagram,
-        website: nextProps.user.profile.social.website
-      });
+    for (let key in nextProps.user.profile.social) {
+      if (nextProps.user.profile.social[key] !== this.state[key]) {
+        this.setState({
+          [key]: nextProps.user.profile.social[key]
+        });
+      }
     }
   }
+
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -112,7 +111,7 @@ class Description extends Component {
           </form>
         ) : (
           <p className="bio">
-            {this.state.bio && this.state.bio !== "" ? (
+            {this.state.bio ? (
               <span>{this.state.bio}</span>
             ) : (
               <span className="font-italic">
