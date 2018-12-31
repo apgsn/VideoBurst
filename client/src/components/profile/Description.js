@@ -39,25 +39,20 @@ class Description extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onBioIconClick = e => {
+  onIconClick = e => {
     e.preventDefault();
-    this.setState({ editingBio: !this.state.editingBio });
+    this.setState({ [e.target.id]: !this.state[e.target.id] });
   };
 
   onBioSubmit = e => {
     e.preventDefault();
-    this.onBioIconClick(e);
+    this.setState({ editingBio: false });
     this.props.changeDescription({ data: this.state.bio, type: "bio" });
-  };
-
-  onSocialIconClick = e => {
-    e.preventDefault();
-    this.setState({ editingSocial: !this.state.editingSocial });
   };
 
   onSocialSubmit = e => {
     e.preventDefault();
-    this.onSocialIconClick(e);
+    this.setState({ editingSocial: false });
     const newSocial = {
       youtube: this.state.youtube,
       twitter: this.state.twitter,
@@ -80,15 +75,17 @@ class Description extends Component {
           {personal ? (
             this.state.editingBio ? (
               <i
+                id="editingBio"
                 className="fas fa-times text-primary edit mx-2"
                 style={{ cursor: "pointer" }}
-                onClick={this.onBioIconClick}
+                onClick={this.onIconClick}
               />
             ) : (
               <i
+                id="editingBio"
                 className="fas fa-edit text-primary edit mx-2"
                 style={{ cursor: "pointer" }}
-                onClick={this.onBioIconClick}
+                onClick={this.onIconClick}
               />
             )
           ) : null}
@@ -135,15 +132,17 @@ class Description extends Component {
           {personal ? (
             this.state.editingSocial ? (
               <i
+                id="editingSocial"
                 className="fas fa-times text-primary edit mx-2"
                 style={{ cursor: "pointer" }}
-                onClick={this.onSocialIconClick}
+                onClick={this.onIconClick}
               />
             ) : (
               <i
+                id="editingSocial"
                 className="fas fa-edit text-primary edit mx-2"
                 style={{ cursor: "pointer" }}
-                onClick={this.onSocialIconClick}
+                onClick={this.onIconClick}
               />
             )
           ) : null}
