@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { changeDescription, getProfile } from "../../actions/userActions.js";
+import { changeDescription } from "../../actions/userActions.js";
 import "./Description.css";
 
 import Input from "../common/Input.js";
@@ -283,5 +283,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { changeDescription, getProfile }
+  { changeDescription }
 )(Description);

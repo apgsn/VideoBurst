@@ -21,7 +21,7 @@ export const loadLeaderboard = () => dispatch => {
 };
 
 // get public profile of user
-export const getProfile = username => dispatch => {
+export const getProfile = (username, history) => dispatch => {
   axios
     .get("/api/user/u/" + username)
     .then(res => {
@@ -35,6 +35,7 @@ export const getProfile = username => dispatch => {
         type: GET_ERRORS,
         payload: err.response.data
       });
+      history.push("/");
     });
 };
 

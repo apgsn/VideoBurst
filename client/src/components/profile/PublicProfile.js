@@ -9,7 +9,7 @@ class PublicProfile extends Component {
   componentDidMount() {
     const username = this.props.match.params.username;
     if (username) {
-      this.props.getProfile(username);
+      this.props.getProfile(username, this.props.history);
     }
   }
 
@@ -18,7 +18,10 @@ class PublicProfile extends Component {
       nextProps.video !== this.props.video ||
       this.props.match !== nextProps.match
     ) {
-      this.props.getProfile(nextProps.match.params.username);
+      this.props.getProfile(
+        nextProps.match.params.username,
+        this.props.history
+      );
     }
   }
 
