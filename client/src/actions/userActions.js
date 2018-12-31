@@ -1,5 +1,6 @@
 import axios from "axios";
 import { LOAD_LEADERBOARD, GET_ERRORS, GET_PROFILE } from "./types";
+import { logoutUser } from "./authActions";
 
 // load leaderboard
 export const loadLeaderboard = () => dispatch => {
@@ -46,6 +47,26 @@ export const changeDescription = req => dispatch => {
         type: GET_PROFILE,
         payload: res.data
       });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
+// delete user
+export const deleteUser = history => dispatch => {
+  axios
+    .delete("/api/user/delete")
+    .then(res => {
+      dispatch(logoutUser());
+      dispatch({
+        type: GET_PROFILE,
+        payload: {}
+      });
+      history.push("/login");
     })
     .catch(err => {
       dispatch({

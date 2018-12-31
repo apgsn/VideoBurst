@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { popErrors } from "../../actions/authActions";
+import { popErrors } from "../../actions/errorActions";
 
 import "./ErrorPopup.css";
 

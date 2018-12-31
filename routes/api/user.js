@@ -1,4 +1,3 @@
-const assert = require("assert");
 const express = require("express");
 const router = express.Router();
 
@@ -123,7 +122,6 @@ router.post(
           errors.request = "Bad request";
           return res.status(400).json(errors);
         }
-        console.log(req.body);
         user.save().then(
           res.json({
             username: user.username,
@@ -193,40 +191,38 @@ router.get("/u/:username", (req, res) => {
 // @desc    delete user account
 // @access  private
 router.delete(
-  "/u/:username",
+  "/delete",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const errors = {};
+
     User.findById(req.user.id)
       .then(user => {
-        if (user) {
-          if (String(user.username) !== req.params.username) {
-            errors.video = "You cannot delete other people's accounts";
-            return res.status(400).json(errors);
-          } else {
-            // find all uploaded videos,
-            // then remove them all
-            user.uploads.forEach(videoId => {
-              Video.findById(videoId)
-                .then(video => {
-                  video.remove();
-                })
-                .catch(err => {
-                  console.log(err);
-                });
-            });
-
-            // remove user
-            user
-              .remove()
-              .then(() => {
-                res.json({ success: true });
-              })
-              .catch(err => {
-                console.log(err);
-              });
-          }
+        if (!user) {
+          errors.noUser = "This user doesn't exist";
+          return res.status(404).json(errors);
         }
+        // find all uploaded videos,
+        // then remove them all
+        user.uploads.forEach(videoId => {
+          Video.findById(videoId)
+            .then(video => {
+              video.remove();
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        });
+
+        // remove user
+        user
+          .remove()
+          .then(() => {
+            res.json({ success: true });
+          })
+          .catch(err => {
+            console.log(err);
+          });
       })
       .catch(err => res.status(404).json(err));
   }

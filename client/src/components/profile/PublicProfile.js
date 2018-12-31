@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getProfile } from "../../actions/userActions.js";
+import { getProfile, deleteUser } from "../../actions/userActions.js";
 
 import Video from "../common/Video.js";
 import Description from "./Description.js";
@@ -22,8 +22,22 @@ class PublicProfile extends Component {
     }
   }
 
+  onDeleteUser = e => {
+    e.preventDefault();
+    if (
+      window.confirm(
+        "Are you sure you want to delete your account?\nThis cannot be undone."
+      )
+    ) {
+      this.props.deleteUser(this.props.history);
+    }
+  };
+
   render() {
     const { profile } = this.props.user;
+    const { isAuthenticated } = this.props.auth;
+    const personal =
+      isAuthenticated && profile.username === this.props.auth.user.username;
     return (
       <div className="container my-3">
         <div className="row">
@@ -39,7 +53,23 @@ class PublicProfile extends Component {
             <div className="my-1">Likes received: {profile.likesCount}</div>
           </div>
         </div>
+
         <Description />
+
+        {personal && (
+          <div className="container">
+            <div className="row">
+              <button
+                type="button"
+                className="btn btn-danger my-3"
+                onClick={this.onDeleteUser}
+              >
+                Delete Account
+              </button>
+            </div>
+          </div>
+        )}
+
         {profile.uploads && Boolean(profile.uploads.length) && (
           <React.Fragment>
             <h4 className="my-3">Uploads</h4>
@@ -56,11 +86,12 @@ class PublicProfile extends Component {
 }
 
 const mapStateToProps = state => ({
+  auth: state.auth,
   user: state.user,
   video: state.video
 });
 
 export default connect(
   mapStateToProps,
-  { getProfile }
+  { getProfile, deleteUser }
 )(PublicProfile);
