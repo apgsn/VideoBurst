@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { changeDescription, getProfile } from "../../actions/userActions.js";
+import "./Description.css";
 
 import Input from "../common/Input.js";
 
@@ -69,12 +70,12 @@ class Description extends Component {
 
   render() {
     const { profile } = this.props.user;
-    const { isAuthenticated } = this.props.auth;
-    const personal =
-      isAuthenticated && profile.username === this.props.auth.user.username;
+    const { personal } = this.props;
+
     return (
       <React.Fragment>
         <h4 className="my-3">
+          {/* bio */}
           About this user{" "}
           {personal ? (
             this.state.editingBio ? (
@@ -93,22 +94,29 @@ class Description extends Component {
           ) : null}
         </h4>
         {this.state.editingBio ? (
-          <form
-            className="form-inline"
-            autoComplete="off"
-            onSubmit={this.onBioSubmit}
-            type="submit"
-            value="submit"
-          >
-            <textarea
-              name="bio"
-              onChange={this.onChange}
-              value={this.state.bio}
-            />
-            <button className="btn btn-primary mx-1" type="submit">
-              <i className="fas fa-arrow-circle-right" />
-            </button>
-          </form>
+          <div className="row social input w-50 bg-light p-3 mb-2 border rounded shadow border-grey">
+            <form
+              className="form-group w-100"
+              autoComplete="off"
+              onSubmit={this.onBioSubmit}
+            >
+              <div className="form-group ">
+                <textarea
+                  placeholder="Write something about you..."
+                  className="form-control w-100"
+                  name="bio"
+                  onChange={this.onChange}
+                  value={this.state.bio}
+                />
+              </div>
+              <button
+                className="btn btn-primary m-1 w-25 btn-block mt-4"
+                type="submit"
+              >
+                <i className="fas fa-arrow-circle-right" />
+              </button>
+            </form>
+          </div>
         ) : (
           <p className="bio">
             {this.state.bio ? (
@@ -122,7 +130,6 @@ class Description extends Component {
         )}
 
         {/* social */}
-
         <h4 className="my-3">
           Social{" "}
           {personal ? (
@@ -142,45 +149,67 @@ class Description extends Component {
           ) : null}
         </h4>
         {this.state.editingSocial ? (
-          <div className="row social input">
-            <form
-              className="form-inline"
-              autoComplete="off"
-              onSubmit={this.onSocialSubmit}
-              type="submit"
-              value="submit"
-            >
-              <Input
-                placeholder="Link to Youtube profile"
-                value={this.state.youtube}
-                name="youtube"
-                onChange={this.onChange}
-              />
-              <Input
-                placeholder="Link to Twitter profile"
-                value={this.state.twitter}
-                name="twitter"
-                onChange={this.onChange}
-              />
-              <Input
-                placeholder="Link to Facebook profile"
-                value={this.state.facebook}
-                name="facebook"
-                onChange={this.onChange}
-              />
-              <Input
-                placeholder="Link to Instagram profile"
-                value={this.state.instagram}
-                name="instagram"
-                onChange={this.onChange}
-              />
-              <Input
-                placeholder="Link to a personal website"
-                value={this.state.website}
-                name="website"
-                onChange={this.onChange}
-              />{" "}
-              <button className="btn btn-primary mx-1" type="submit">
+          <div className="row social input w-50 bg-light p-3 mb-2 border rounded shadow border-grey">
+            <form autoComplete="off" onSubmit={this.onSocialSubmit}>
+              <div className="d-inline-flex p-2 w-100">
+                <Input
+                  placeholder="Link to Youtube profile"
+                  value={this.state.youtube}
+                  name="youtube"
+                  onChange={this.onChange}
+                />
+                <div className="icon-div my-1">
+                  <i className="fab fa-youtube fa-2x" />
+                </div>
+              </div>
+              <div className="d-inline-flex p-2">
+                <Input
+                  placeholder="Link to Twitter profile"
+                  value={this.state.twitter}
+                  name="twitter"
+                  onChange={this.onChange}
+                />
+                <div className="icon-div my-1">
+                  <i className="fab fa-twitter fa-2x" />
+                </div>
+              </div>
+              <div className="d-inline-flex p-2">
+                <Input
+                  placeholder="Link to Facebook profile"
+                  value={this.state.facebook}
+                  name="facebook"
+                  onChange={this.onChange}
+                />
+                <div className="icon-div my-1">
+                  <i className="fab fa-facebook fa-2x" />
+                </div>
+              </div>
+              <div className="d-inline-flex p-2">
+                <Input
+                  placeholder="Link to Instagram profile"
+                  value={this.state.instagram}
+                  name="instagram"
+                  onChange={this.onChange}
+                />
+                <div className="icon-div my-1">
+                  <i className="fab fa-instagram fa-2x" />
+                </div>
+              </div>
+              <div className="d-inline-flex p-2">
+                <Input
+                  placeholder="Link to a personal website"
+                  value={this.state.website}
+                  name="website"
+                  onChange={this.onChange}
+                />
+                <div className="icon-div my-1">
+                  <i className="fas fa-globe fa-2x" />
+                </div>
+              </div>
+              <button
+                className="btn btn-primary m-1 w-25 btn-block mt-4"
+                type="submit"
+              >
                 <i className="fas fa-arrow-circle-right" />
               </button>
             </form>
@@ -249,7 +278,6 @@ class Description extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth,
   user: state.user
 });
 

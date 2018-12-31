@@ -54,14 +54,14 @@ class PublicProfile extends Component {
           </div>
         </div>
 
-        <Description />
+        <Description personal={personal} />
 
         {personal && (
           <div className="container">
             <div className="row">
               <button
                 type="button"
-                className="btn btn-danger my-3"
+                className="btn btn-danger my-4"
                 onClick={this.onDeleteUser}
               >
                 Delete Account

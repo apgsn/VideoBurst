@@ -66,7 +66,7 @@ export const deleteUser = history => dispatch => {
         type: GET_PROFILE,
         payload: {}
       });
-      history.push("/login");
+      history.push("/");
     })
     .catch(err => {
       dispatch({
