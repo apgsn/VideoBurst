@@ -4,6 +4,7 @@ import { registerUser } from "../../actions/authActions";
 
 import Input from "../common/Input";
 import ErrorPopup from "../common/ErrorPopup";
+import "./Auth.css";
 
 class Register extends Component {
   constructor(props) {
@@ -33,8 +34,8 @@ class Register extends Component {
 
   render() {
     return (
-      <div id="register" style={{ marginTop: "100px" }}>
-        <div className="w-50 bg-light p-3 mb-2 border rounded shadow border-grey container custom-control ">
+      <div id="register" className="auth-form">
+        <div className="bg-light p-3 mb-2 border rounded shadow border-grey ">
           <h3>Sign up</h3>
           <form onSubmit={this.onSubmit}>
             <Input

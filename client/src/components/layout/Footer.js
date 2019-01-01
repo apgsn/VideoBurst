@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="container">
         <div className="row">
           <div className="copyright col-sm">
-            &copy; {new Date().getFullYear()} VideoBurst
+            &copy; 2018-{String(new Date().getFullYear()).slice(2)} VideoBurst
           </div>
           <div className="col-sm" />
           <div className="github-link text-info col-sm">
