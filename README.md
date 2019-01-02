@@ -1,12 +1,12 @@
 # VideoBurst
 
-<img src="imgs/screen1.png">
-
 ### Pop the YouTube bubble
+
+<img src="imgs/screen1.png">
 
 A full-stack MERN application. Share your favorite Youtube videos in freedom, play those shared by others, give and collect likes, and climb the leaderboard by sharing the best content.
 
-Try [Videoburst](https://videoburst.herokuapp.com/) (Alpha)
+Try [VideoBurst](https://videoburst.herokuapp.com/) (Alpha)
 
 #### Features
 
@@ -22,4 +22,4 @@ All of this is served by a REST/JSON API with public and private routes taking c
 
 #### Notes on implementation
 
-Make sure you have Node.js and npm installed. Clone this repo and install the dependencies listed in the `Package.json` files located in the main folder and in the `client` one. Use the command `npm run dev` in main to lauch the app.
+Make sure you have Node.js and npm installed. Clone this repo and install the dependencies listed in the `Package.json` files located in the main folder and in the `client` one. In `config`, add a file named `keys_dev.js` and store your personal keys here (see `keys_prod.js` for the production counterpart). Finally, use the command `npm run dev` in main to lauch the app.
