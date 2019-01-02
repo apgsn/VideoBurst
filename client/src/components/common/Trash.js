@@ -6,7 +6,7 @@ class Trash extends Component {
   onClick = e => {
     if (
       window.confirm(
-        "Are you sure you want to delete this video?\nThis cannot be undone."
+        "Are you sure you want to delete this video? You will lose all the likes it got.\nThis cannot be undone."
       )
     ) {
       this.props.deleteVideo(
