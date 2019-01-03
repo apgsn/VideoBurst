@@ -35,14 +35,22 @@ class Navbar extends Component {
               <li className="nav-item">
                 <SearchBar />
               </li>
-              <li className="nav-item my-2">
+              <li
+                className="nav-item my-2"
+                data-toggle="collapse"
+                data-target=".navbar-collapse.show"
+              >
                 <Link className="nav-link" to="/leaderboard">
                   Leaderboard
                 </Link>
               </li>
               {auth.isAuthenticated ? (
                 <React.Fragment>
-                  <li className="nav-item my-2">
+                  <li
+                    className="nav-item my-2"
+                    data-toggle="collapse"
+                    data-target=".navbar-collapse.show"
+                  >
                     <Link
                       to={"/u/" + auth.user.username}
                       className="nav-link my-profile"
@@ -50,18 +58,31 @@ class Navbar extends Component {
                       <strong>{auth.user.username}</strong>
                     </Link>
                   </li>
-                  <li className="nav-item my-2" onClick={this.onLogout}>
+                  <li
+                    className="nav-item my-2 "
+                    data-toggle="collapse"
+                    data-target=".navbar-collapse.show"
+                    onClick={this.onLogout}
+                  >
                     <div className="nav-link logout">Logout</div>
                   </li>
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  <li className="nav-item my-2">
+                  <li
+                    className="nav-item my-2"
+                    data-toggle="collapse"
+                    data-target=".navbar-collapse.show"
+                  >
                     <Link className="nav-link" to="/register">
                       Sign Up
                     </Link>
                   </li>
-                  <li className="nav-item my-2">
+                  <li
+                    className="nav-item my-2"
+                    data-toggle="collapse"
+                    data-target=".navbar-collapse.show"
+                  >
                     <Link className="nav-link" to="/login">
                       Log In
                     </Link>
