@@ -6,7 +6,7 @@ import "./VideoPlayer.css";
 
 import SecondIcon from "../common/SecondIcon.js";
 
-const HEIGHT_CLOSED = 70;
+const HEIGHT_CLOSED = 56;
 const HEIGHT_OPEN = 430;
 
 class VideoPlayer extends Component {
@@ -51,12 +51,16 @@ class VideoPlayer extends Component {
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
-            <div>
-              <i
-                className="fas fa-times player-cross"
-                onClick={this.toggleView}
-              />
-              <SecondIcon video={nowPlaying} />
+            <div id="video-player-icons">
+              <div>
+                <i
+                  className="fas fa-times player-cross"
+                  onClick={this.toggleView}
+                />
+              </div>
+              <div>
+                <SecondIcon video={nowPlaying} />
+              </div>
             </div>
           </div>
         </AnimateHeight>

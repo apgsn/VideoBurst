@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getProfile, deleteUser } from "../../actions/userActions.js";
+import "./Description.css";
 
 import Video from "../common/Video.js";
 import Description from "./Description.js";
@@ -42,7 +43,7 @@ class PublicProfile extends Component {
     const personal =
       isAuthenticated && profile.username === this.props.auth.user.username;
     return (
-      <div className="container my-3">
+      <div className="profile container my-3">
         <div className="row">
           <svg
             width="120"

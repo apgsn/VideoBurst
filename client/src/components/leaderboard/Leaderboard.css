@@ -1,5 +1,6 @@
 .leaderboard {
   margin-bottom: 70px;
+  width: 400px;
 }
 
 .profile-link {
@@ -8,4 +9,15 @@
 
 .profile-link:hover {
   color: cornflowerblue;
+}
+
+.leaderboard .fas {
+  font-size: 12px !important;
+}
+
+@media only screen and (max-width: 400px) {
+  .leaderboard {
+    margin-bottom: 70px;
+    width: 100%;
+  }
 }

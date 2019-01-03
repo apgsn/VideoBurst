@@ -91,7 +91,7 @@ class Description extends Component {
           ) : null}
         </h4>
         {this.state.editingBio ? (
-          <div className="row social input w-50 bg-light p-3 mb-2 border rounded shadow border-grey">
+          <div className="row desc-form-container input bg-light p-3 mb-2 border rounded shadow border-grey">
             <form
               className="form-group w-100"
               autoComplete="off"
@@ -148,7 +148,7 @@ class Description extends Component {
           ) : null}
         </h4>
         {this.state.editingSocial ? (
-          <div className="row social input w-50 bg-light p-3 mb-2 border rounded shadow border-grey">
+          <div className="row desc-form-container input bg-light p-3 mb-2 border rounded shadow border-grey">
             <form autoComplete="off" onSubmit={this.onSocialSubmit}>
               <div className="d-inline-flex p-2 w-100">
                 <Input

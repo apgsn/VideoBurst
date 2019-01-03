@@ -1,5 +1,6 @@
 .auth-form {
-  margin-top: 70px;
-  display: flex;
-  justify-content: center;
+  width: 400px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 70px;
 }

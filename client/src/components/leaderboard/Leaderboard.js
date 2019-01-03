@@ -17,7 +17,7 @@ class Leaderboard extends Component {
 
   render() {
     return (
-      <div className="w-50 pt-5 container leaderboard">
+      <div className="pt-5 container leaderboard">
         <h3>Leaderboard</h3>
         <ul className="row center-block list-group shadow">
           {this.props.user.leaderboard.map((user, index) => (
@@ -35,7 +35,7 @@ class Leaderboard extends Component {
                 <h5>{user.username}</h5>
               </Link>
               <span className="badge badge-danger badge-pill">
-                Likes received: &nbsp;
+                <i className="panel-icons fas fa-heart" /> &nbsp;
                 <span className="h6"> {user.likesCount}</span>
               </span>
             </li>
