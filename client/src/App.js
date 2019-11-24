@@ -38,8 +38,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(axios.defaults.headers.common)
-
     return (
       <Provider store={store}>
         <Router>
