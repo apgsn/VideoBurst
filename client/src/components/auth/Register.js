@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 
@@ -73,8 +74,22 @@ class Register extends Component {
   }
 }
 
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  history: PropTypes.shape({}).isRequired,
+  errors: PropTypes.shape({
+    username: PropTypes.string,
+    email: PropTypes.string,
+    password: PropTypes.string,
+    password2: PropTypes.string,
+  }),
+}
+
+Register.defaultProps = {
+  errors: {},
+}
+
 const mapStateToProps = state => ({
-  auth: state.auth,
   errors: state.errors
 });
 

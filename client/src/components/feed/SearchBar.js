@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addVideo, loadVideos } from "../../actions/videoActions";
 import "./SearchBar.css";
@@ -11,7 +12,6 @@ class SearchBar extends Component {
     super(props);
     this.state = {
       input: "",
-      errors: {},
       loading: false
     };
   }
@@ -54,11 +54,10 @@ class SearchBar extends Component {
                 loading={this.state.loading}
               />
               <button className="btn btn-danger mx-1" type="submit">
-                {this.state.loading ? (
-                  <i className="fas fa-copyright spin" />
-                ) : (
+                {this.state.loading ?
+                  <i className="fas fa-copyright spin" /> :
                   <i className="fas fa-arrow-circle-right" />
-                )}
+                }
               </button>
             </div>
           )}
@@ -67,6 +66,21 @@ class SearchBar extends Component {
       </div>
     );
   }
+}
+
+SearchBar.propTypes = {
+  addVideo: PropTypes.func.isRequired,
+  errors: PropTypes.shape({
+    video: PropTypes.string,
+  }).isRequired,
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.bool,
+  }).isRequired,
+  video: PropTypes.shape({}),
+}
+
+SearchBar.defaultProps = {
+  video: {},
 }
 
 const mapStateToProps = state => ({

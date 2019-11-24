@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { changeDescription } from "../../actions/userActions.js";
 import "./Description.css";
@@ -12,31 +13,34 @@ class Description extends Component {
       editingBio: false,
       editingSocial: false,
       bio: "",
-      youtube: "",
-      twitter: "",
-      facebook: "",
-      instagram: "",
-      website: ""
+      social: {
+        youtube: "",
+        twitter: "",
+        facebook: "",
+        instagram: "",
+        website: "",
+      }
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user.profile.bio !== this.state.bio) {
-      this.setState({
-        bio: nextProps.user.profile.bio
-      });
+    if (nextProps.profile.bio !== this.state.bio) {
+      this.setState({ bio: nextProps.profile.bio });
     }
-    for (let key in nextProps.user.profile.social) {
-      if (nextProps.user.profile.social[key] !== this.state[key]) {
-        this.setState({
-          [key]: nextProps.user.profile.social[key]
-        });
-      }
+    if (nextProps.profile.social !== this.state.social) {
+      this.setState({ social: nextProps.profile.social });
     }
   }
 
+  onBioChange = e => this.setState({ bio: e.target.value });
+
   onChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({
+      social: {
+        ...this.state.social,
+        [e.target.name]: e.target.value,
+      }
+    });
   };
 
   onIconClick = e => {
@@ -47,24 +51,19 @@ class Description extends Component {
   onBioSubmit = e => {
     e.preventDefault();
     this.setState({ editingBio: false });
-    this.props.changeDescription({ data: this.state.bio, type: "bio" });
+    const { bio } = this.state;
+    this.props.changeDescription({ data: bio, type: "bio" });
   };
 
   onSocialSubmit = e => {
     e.preventDefault();
     this.setState({ editingSocial: false });
-    const newSocial = {
-      youtube: this.state.youtube,
-      twitter: this.state.twitter,
-      facebook: this.state.facebook,
-      instagram: this.state.instagram,
-      website: this.state.website
-    };
-    this.props.changeDescription({ data: newSocial, type: "social" });
+    const { social } = this.state;
+    this.props.changeDescription({ data: social, type: "social" });
   };
 
   render() {
-    const { profile } = this.props.user;
+    const { profile } = this.props;
     const { personal } = this.props;
 
     return (
@@ -81,13 +80,13 @@ class Description extends Component {
                 onClick={this.onIconClick}
               />
             ) : (
-              <i
-                id="editingBio"
-                className="fas fa-edit text-primary edit mx-2"
-                style={{ cursor: "pointer" }}
-                onClick={this.onIconClick}
-              />
-            )
+                <i
+                  id="editingBio"
+                  className="fas fa-edit text-primary edit mx-2"
+                  style={{ cursor: "pointer" }}
+                  onClick={this.onIconClick}
+                />
+              )
           ) : null}
         </h4>
         {this.state.editingBio ? (
@@ -102,7 +101,7 @@ class Description extends Component {
                   placeholder="Write something about you..."
                   className="form-control w-100"
                   name="bio"
-                  onChange={this.onChange}
+                  onChange={this.onBioChange}
                   value={this.state.bio}
                 />
               </div>
@@ -115,16 +114,16 @@ class Description extends Component {
             </form>
           </div>
         ) : (
-          <p className="bio">
-            {this.state.bio ? (
-              <span>{this.state.bio}</span>
-            ) : (
-              <span className="font-italic">
-                {profile.username} doesn't have a bio
+            <p className="bio">
+              {this.state.bio ? (
+                <span>{this.state.bio}</span>
+              ) : (
+                  <span className="font-italic">
+                    {profile.username} doesn't have a bio
               </span>
-            )}
-          </p>
-        )}
+                )}
+            </p>
+          )}
 
         {/* social */}
         <h4 className="my-3">
@@ -138,13 +137,13 @@ class Description extends Component {
                 onClick={this.onIconClick}
               />
             ) : (
-              <i
-                id="editingSocial"
-                className="fas fa-edit text-primary edit mx-2"
-                style={{ cursor: "pointer" }}
-                onClick={this.onIconClick}
-              />
-            )
+                <i
+                  id="editingSocial"
+                  className="fas fa-edit text-primary edit mx-2"
+                  style={{ cursor: "pointer" }}
+                  onClick={this.onIconClick}
+                />
+              )
           ) : null}
         </h4>
         {this.state.editingSocial ? (
@@ -153,7 +152,7 @@ class Description extends Component {
               <div className="d-inline-flex p-2 w-100">
                 <Input
                   placeholder="Link to Youtube profile"
-                  value={this.state.youtube}
+                  value={this.state.social.youtube}
                   name="youtube"
                   onChange={this.onChange}
                 />
@@ -164,7 +163,7 @@ class Description extends Component {
               <div className="d-inline-flex p-2">
                 <Input
                   placeholder="Link to Twitter profile"
-                  value={this.state.twitter}
+                  value={this.state.social.twitter}
                   name="twitter"
                   onChange={this.onChange}
                 />
@@ -175,7 +174,7 @@ class Description extends Component {
               <div className="d-inline-flex p-2">
                 <Input
                   placeholder="Link to Facebook profile"
-                  value={this.state.facebook}
+                  value={this.state.social.facebook}
                   name="facebook"
                   onChange={this.onChange}
                 />
@@ -186,7 +185,7 @@ class Description extends Component {
               <div className="d-inline-flex p-2">
                 <Input
                   placeholder="Link to Instagram profile"
-                  value={this.state.instagram}
+                  value={this.state.social.instagram}
                   name="instagram"
                   onChange={this.onChange}
                 />
@@ -197,7 +196,7 @@ class Description extends Component {
               <div className="d-inline-flex p-2">
                 <Input
                   placeholder="Link to a personal website"
-                  value={this.state.website}
+                  value={this.state.social.website}
                   name="website"
                   onChange={this.onChange}
                 />
@@ -267,17 +266,37 @@ class Description extends Component {
             ) : null}
           </div>
         ) : (
-          <span className="font-italic">
-            {profile.username} is not a social type
+              <span className="font-italic">
+                {profile.username} is not a social type
           </span>
-        )}
+            )}
       </React.Fragment>
     );
   }
 }
 
+Description.propTypes = {
+  changeDescription: PropTypes.func.isRequired,
+  profile: PropTypes.shape({
+    bio: PropTypes.string,
+    social: PropTypes.shape({}),
+    username: PropTypes.string,
+  }),
+  personal: PropTypes.bool,
+}
+
+Description.defaultProps = {
+  profile: {
+    bio: '',
+    social: {},
+    username: '',
+  },
+  personal: false,
+}
+
+
 const mapStateToProps = state => ({
-  user: state.user
+  profile: state.user.profile,
 });
 
 export default connect(

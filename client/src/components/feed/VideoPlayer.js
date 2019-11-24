@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import AnimateHeight from "react-animate-height";
 import { connect } from "react-redux";
 import { closeVideo } from "../../actions/videoActions.js";
@@ -67,6 +68,15 @@ class VideoPlayer extends Component {
       )
     );
   }
+}
+
+VideoPlayer.propTypes = {
+  closeVideo: PropTypes.func.isRequired,
+  video: PropTypes.shape({
+    nowPlaying: PropTypes.shape({
+      videoId: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
 }
 
 const mapStateToProps = state => ({

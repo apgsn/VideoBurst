@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { loadLeaderboard } from "../../actions/userActions.js";
@@ -20,7 +21,7 @@ class Leaderboard extends Component {
       <div className="pt-5 container leaderboard">
         <h3>Leaderboard</h3>
         <ul className="row center-block list-group shadow">
-          {this.props.user.leaderboard.map((user, index) => (
+          {this.props.leaderboard.map((user, index) => (
             <li
               key={index}
               className="p-3 list-group-item d-flex justify-content-between align-items-center"
@@ -46,8 +47,22 @@ class Leaderboard extends Component {
   }
 }
 
+Leaderboard.propTypes = {
+  loadLeaderboard: PropTypes.func.isRequired,
+  leaderboard: PropTypes.arrayOf(PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    likesCount: PropTypes.number.isRequired,
+  })),
+  video: PropTypes.shape({}),
+}
+
+Leaderboard.defaultProps = {
+  leaderboard: [],
+  video: {},
+}
+
 const mapStateToProps = state => ({
-  user: state.user,
+  leaderboard: state.user.leaderboard,
   video: state.video
 });
 

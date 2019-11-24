@@ -14,7 +14,6 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import VideoPlayer from "./components/feed/VideoPlayer";
 import PublicProfile from "./components/profile/PublicProfile";
-import axios from "axios";
 
 class App extends Component {
   // Check if the token has expired and logout user if necessary
@@ -31,31 +30,29 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     // Check credentials on mount and every minute afterwards
     this.verifyToken();
     setInterval(this.verifyToken, 60000);
   }
 
-  render() {
-    return (
-      <Provider store={store}>
-        <Router>
-          <React.Fragment>
-            <Navbar />
-            <VideoPlayer />
-            <Switch>
-              <Route exact path="/" component={VideoCollection} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/leaderboard" component={Leaderboard} />
-              <Route exact path="/u/:username" component={PublicProfile} />
-            </Switch>
-            <Footer />
-          </React.Fragment>
-        </Router>
-      </Provider>
-    );
-  }
+  render = () => (
+    <Provider store={store}>
+      <Router>
+        <React.Fragment>
+          <Navbar />
+          <VideoPlayer />
+          <Switch>
+            <Route exact path="/" component={VideoCollection} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/leaderboard" component={Leaderboard} />
+            <Route exact path="/u/:username" component={PublicProfile} />
+          </Switch>
+          <Footer />
+        </React.Fragment>
+      </Router>
+    </Provider>
+  );
 }
 export default App;

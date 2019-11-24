@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
@@ -68,33 +69,50 @@ class Navbar extends Component {
                   </li>
                 </React.Fragment>
               ) : (
-                <React.Fragment>
-                  <li
-                    className="nav-item my-2"
-                    data-toggle="collapse"
-                    data-target=".navbar-collapse.show"
-                  >
-                    <Link className="nav-link" to="/register">
-                      Sign Up
+                  <React.Fragment>
+                    <li
+                      className="nav-item my-2"
+                      data-toggle="collapse"
+                      data-target=".navbar-collapse.show"
+                    >
+                      <Link className="nav-link" to="/register">
+                        Sign Up
                     </Link>
-                  </li>
-                  <li
-                    className="nav-item my-2"
-                    data-toggle="collapse"
-                    data-target=".navbar-collapse.show"
-                  >
-                    <Link className="nav-link" to="/login">
-                      Log In
+                    </li>
+                    <li
+                      className="nav-item my-2"
+                      data-toggle="collapse"
+                      data-target=".navbar-collapse.show"
+                    >
+                      <Link className="nav-link" to="/login">
+                        Log In
                     </Link>
-                  </li>
-                </React.Fragment>
-              )}
+                    </li>
+                  </React.Fragment>
+                )}
             </ul>
           </div>
         </div>
       </nav>
     );
   }
+}
+
+Navbar.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.bool,
+    user: PropTypes.shape({
+      username: PropTypes.string,
+    })
+  }),
+}
+
+Navbar.defaultProps = {
+  auth: {
+    isAuthenticated: false,
+    user: {},
+  },
 }
 
 const mapStateToProps = state => ({

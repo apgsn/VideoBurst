@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { popErrors } from "../../actions/errorActions";
 
@@ -60,11 +61,23 @@ class ErrorPopup extends Component {
             </button>
           </div>
         ) : (
-          ""
-        )}
+            ""
+          )}
       </React.Fragment>
     );
   }
+}
+
+ErrorPopup.propTypes = {
+  popErrors: PropTypes.func.isRequired,
+  errors: PropTypes.oneOfType([
+    PropTypes.shape({}),
+    PropTypes.string,
+  ]),
+}
+
+ErrorPopup.defaultProps = {
+  errors: {},
 }
 
 const mapStateToProps = state => ({

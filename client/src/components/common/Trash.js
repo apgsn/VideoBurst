@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { deleteVideo } from "../../actions/videoActions";
 
@@ -24,6 +25,15 @@ class Trash extends Component {
     );
   }
 }
+
+Trash.propTypes = {
+  deleteVideo: PropTypes.func.isRequired,
+  video: PropTypes.shape({}).isRequired,
+  videoState: PropTypes.shape({
+    nowPlaying: PropTypes.shape({}),
+  }).isRequired,
+}
+
 const mapStateToProps = state => ({
   videoState: state.video
 });

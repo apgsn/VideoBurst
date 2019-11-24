@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getProfile, deleteUser } from "../../actions/userActions.js";
 import "./Description.css";
@@ -38,7 +39,7 @@ class PublicProfile extends Component {
   };
 
   render() {
-    const { profile } = this.props.user;
+    const { profile } = this.props;
     const { isAuthenticated } = this.props.auth;
     const personal =
       isAuthenticated && profile.username === this.props.auth.user.username;
@@ -89,9 +90,38 @@ class PublicProfile extends Component {
   }
 }
 
+PublicProfile.propTypes = {
+  getProfile: PropTypes.func.isRequired,
+  deleteUser: PropTypes.func.isRequired,
+  match: PropTypes.shape({}).isRequired,
+  history: PropTypes.shape({}).isRequired,
+  video: PropTypes.shape({}),
+  auth: PropTypes.shape({
+    isAuthenticated: PropTypes.bool,
+    user: PropTypes.shape({
+      username: PropTypes.string,
+    })
+  }),
+  profile: PropTypes.shape({
+    username: PropTypes.string,
+    likesGiven: PropTypes.number,
+    likesCount: PropTypes.number,
+  }),
+}
+
+PublicProfile.defaultProps = {
+  leaderboard: [],
+  video: {},
+  profile: {
+    username: '',
+    likesGiven: 0,
+    likesCount: 0,
+  },
+}
+
 const mapStateToProps = state => ({
   auth: state.auth,
-  user: state.user,
+  profile: state.user.profile,
   video: state.video
 });
 

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { playVideo } from "../../actions/videoActions.js";
 import { connect } from "react-redux";
@@ -51,6 +52,17 @@ class Video extends Component {
       </div>
     );
   }
+}
+
+Video.propTypes = {
+  playVideo: PropTypes.func.isRequired,
+  video: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    user: PropTypes.shape({
+      username: PropTypes.string.isRequired
+    }).isRequired,
+  }).isRequired,
 }
 
 export default connect(
