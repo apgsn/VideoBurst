@@ -14,24 +14,32 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import VideoPlayer from "./components/feed/VideoPlayer";
 import PublicProfile from "./components/profile/PublicProfile";
+import axios from "axios";
 
-// IIFE for automatic check of expired tokens (every minute)
-(() => {
-  setInterval(() => {
+class App extends Component {
+  // Check if the token has expired and logout user if necessary
+  verifyToken = () => {
     if (localStorage.jwtToken) {
       setAuthToken(localStorage.jwtToken);
       const decoded = jwt_decode(localStorage.jwtToken);
       store.dispatch(setCurrentUser(decoded));
+
       const currentTime = Date.now() / 1000;
       if (decoded.exp < currentTime) {
         store.dispatch(logoutUser("expired token"));
       }
     }
-  }, 60000);
-})();
+  }
 
-class App extends Component {
+  componentDidMount() {
+    // Check credentials on mount and every minute afterwards
+    this.verifyToken();
+    setInterval(this.verifyToken, 60000);
+  }
+
   render() {
+    console.log(axios.defaults.headers.common)
+
     return (
       <Provider store={store}>
         <Router>
