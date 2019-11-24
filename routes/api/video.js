@@ -56,6 +56,10 @@ router.post(
               }
             })
             .then(video => {
+              if (!video.data.items.length) {
+                throw 404;
+              }
+
               video = video.data.items[0].snippet;
 
               const newVideo = new Video({
@@ -81,9 +85,21 @@ router.post(
                 });
             })
             .catch(err => {
-              console.log(err);
-              errors.video = "Sorry, this video doesn't exist";
-              return res.status(404).json(errors);
+              let status;
+              if (typeof err === 'number') {
+                status = err;
+              } else {
+                status = err.response.status
+              }
+
+              switch (status) {
+                case 404:
+                  errors.video = "This video doesn't exist";
+                  break;
+                default:
+                  errors.video = "Could not connect to YouTube";
+              }
+              return res.status(status).json(errors);
             });
         }
       })
